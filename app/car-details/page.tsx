@@ -6,6 +6,7 @@ import CarList from "@/components/car/CarList";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import BuildYourDreams from "@/components/marketing/BuildYourDreams";
 import { Car, NavigationItem } from "@/types/car";
+import { useRouter } from "next/navigation";
 
 const sampleCars: Car[] = [
   {
@@ -41,6 +42,7 @@ const navigationItems: NavigationItem[] = [
 ];
 
 export default function CarDetailsPage() {
+  const router = useRouter();
   const [selectedCar, setSelectedCar] = useState<Car>(sampleCars[0]);
   const [activeNav, setActiveNav] = useState<string>("car");
 
@@ -49,14 +51,15 @@ export default function CarDetailsPage() {
   };
 
   const handleNextCar = () => {
-    const currentIndex = sampleCars.findIndex(c => c.id === selectedCar.id);
+    const currentIndex = sampleCars.findIndex((c) => c.id === selectedCar.id);
     const nextIndex = (currentIndex + 1) % sampleCars.length;
     setSelectedCar(sampleCars[nextIndex]);
   };
 
   const handlePrevCar = () => {
-    const currentIndex = sampleCars.findIndex(c => c.id === selectedCar.id);
-    const prevIndex = (currentIndex - 1 + sampleCars.length) % sampleCars.length;
+    const currentIndex = sampleCars.findIndex((c) => c.id === selectedCar.id);
+    const prevIndex =
+      (currentIndex - 1 + sampleCars.length) % sampleCars.length;
     setSelectedCar(sampleCars[prevIndex]);
   };
 
@@ -77,8 +80,8 @@ export default function CarDetailsPage() {
 
         {/* Section 2: Car Showcase */}
         <div className="px-4 mb-4">
-          <CarShowcase 
-            car={selectedCar} 
+          <CarShowcase
+            car={selectedCar}
             onNext={handleNextCar}
             onPrev={handlePrevCar}
           />
