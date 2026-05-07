@@ -184,7 +184,7 @@ export default function HeroSection() {
         src="/images/bg.png"
         alt="Background"
         fill
-        className="object-cover object-center"
+        className="object-cover object-center pointer-events-none"
         priority
         unoptimized
         quality={100}
@@ -244,12 +244,14 @@ export default function HeroSection() {
           </div>
 
           {/* Unlock Button */}
-          <div className="pb-10 px-6 md:pb-12 w-full flex justify-center">
+          <div className="pb-10 px-6 md:pb-12 w-full flex justify-center relative z-50">
             <button
-              onClick={() => router.push("/car-details")}
-              className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl border-2
-             border-white/70 bg-white/10 px-8 py-5 text-lg font-medium text-black backdrop-blur-md transition-all hover:bg-white
-              hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95"
+              onClick={() => {
+                console.log("Button clicked, navigating to car-details");
+                router.push("/car-details");
+              }}
+              className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl border-2 border-white/70 bg-white/10 px-8 py-5 text-lg font-medium text-black backdrop-blur-md transition-all hover:bg-white hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95 cursor-pointer pointer-events-auto"
+              style={{ pointerEvents: "auto" }}
             >
               <Image
                 src="/images/lock-icon.png"
