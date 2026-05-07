@@ -71,6 +71,10 @@ export default function CarDetailsPage() {
     }
   };
 
+  const handleImageClick = () => {
+    router.push(`/car-info/${selectedCar.id}`);
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Scrollable Content */}
@@ -84,6 +88,7 @@ export default function CarDetailsPage() {
             car={selectedCar}
             onNext={handleNextCar}
             onPrev={handlePrevCar}
+            onImageClick={handleImageClick}
           />
         </div>
 
