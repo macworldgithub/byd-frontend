@@ -170,10 +170,13 @@
 //   );
 // }
 
+"use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
+  const router = useRouter();
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image - no overlay, no opacity */}
@@ -242,9 +245,12 @@ export default function HeroSection() {
 
           {/* Unlock Button */}
           <div className="pb-10 px-6 md:pb-12 w-full flex justify-center">
-            <button className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl border-2
+            <button
+              onClick={() => router.push("/car-details")}
+              className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl border-2
              border-white/70 bg-white/10 px-8 py-5 text-lg font-medium text-black backdrop-blur-md transition-all hover:bg-white
-              hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95">
+              hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95"
+            >
               <Image
                 src="/images/lock-icon.png"
                 alt="Lock Icon"
