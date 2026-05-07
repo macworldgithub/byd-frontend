@@ -229,7 +229,7 @@ export default function HeroSection() {
           {/* Car Image - fixed: use large intrinsic dimensions */}
           <div className="relative w-full max-w-2xl px-4">
             <Image
-              src="/images/car.png"
+              src="/images/home-car.png"
               alt="BYD Seal U car"
               width={900}
               height={520}
