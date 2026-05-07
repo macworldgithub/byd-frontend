@@ -38,7 +38,7 @@ const sampleCars: Car[] = [
 const navigationItems: NavigationItem[] = [
   { id: "home", label: "Home", icon: "home" },
   { id: "car", label: "Cars", icon: "car" },
-  { id: "people", label: "Community", icon: "people" },
+  { id: "team", label: "Team", icon: "people" },
 ];
 
 export default function CarDetailsPage() {
@@ -65,10 +65,13 @@ export default function CarDetailsPage() {
 
   const handleNavClick = (itemId: string) => {
     setActiveNav(itemId);
-    // Handle navigation logic here
-    if (itemId === "home") {
-      window.location.href = "/";
-    }
+    if (itemId === "home") window.location.href = "/";
+    if (itemId === "car") window.location.href = "/car-details";
+    if (itemId === "team") window.location.href = "/team";
+  };
+
+  const handleImageClick = () => {
+    router.push(`/car-info/${selectedCar.id}`);
   };
 
   return (
@@ -84,6 +87,7 @@ export default function CarDetailsPage() {
             car={selectedCar}
             onNext={handleNextCar}
             onPrev={handlePrevCar}
+            onImageClick={handleImageClick}
           />
         </div>
 
