@@ -81,29 +81,111 @@
 //     </div>
 //   );
 // }
+// import Image from "next/image";
+
+// export default function HeroSection() {
+//   return (
+//     <div className="relative min-h-screen w-full overflow-hidden">
+//       {/* Background Image */}
+//       {/* <Image
+//         src="/images/bg.png"
+//         alt="Background"
+//         fill
+//         className="object-cover"
+//         priority
+//       /> */}
+//       <Image
+//         src="/images/bg.png"
+//         alt="Background"
+//         fill
+//         className="object-cover"
+//         priority
+//         unoptimized
+//       />
+//       {/* Optional Overlay (for better text readability) */}
+//       {/* <div className="absolute inset-0 bg-black/30" /> */}
+
+//       {/* Main Content */}
+//       <div className="relative z-10 flex min-h-screen flex-col justify-between">
+//         {/* Top Header */}
+//         <div className="flex items-start justify-between px-6 pt-10 md:px-12 lg:px-16">
+//           {/* Left Text */}
+//           <div>
+//             <h1 className="leading-[1.05] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-[-1px]">
+//               YOUR CAR
+//               <br />
+//               IS READY
+//               <br />
+//               TO GO
+//             </h1>
+//           </div>
+
+//           {/* BYD Logo */}
+//           <div className="pt-2">
+//             <Image
+//               src="/images/byd-logo.png"
+//               alt="BYD Logo"
+//               width={160}
+//               height={55}
+//               className="md:w-48"
+//               priority
+//             />
+//           </div>
+//         </div>
+
+//         {/* Middle + Bottom Section */}
+//         <div className="flex flex-col items-center justify-between flex-1">
+//           {/* FIND YOUR BYD */}
+//           <div className="mt-6 px-6 text-center md:mt-10">
+//             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-light text-white/90 tracking-wider">
+//               FIND YOUR BYD
+//             </h2>
+//           </div>
+//           <div className="pt-2">
+//             <Image
+//               src="/images/car.png"
+//               alt="car"
+//               width={100}
+//               height={100}
+//               className="md:w-xl"
+//               priority
+//             />
+//           </div>
+//           {/* Unlock Button */}
+//           <div className="pb-10 px-6 md:pb-12 w-full flex justify-center">
+//             <button className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl  border-2 border-white/70 px-8 py-5 text-lg font-medium text-black backdrop-blur-md transition-all hover:bg-white hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95">
+//               <Image
+//                 src="/images/lock-icon.png"
+//                 alt="Lock Icon"
+//                 width={22}
+//                 height={22}
+//                 priority
+//               />
+//               Tap To Unlock
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
 import Image from "next/image";
 
 export default function HeroSection() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Background Image */}
-      {/* <Image
-        src="/images/bg.png"
-        alt="Background"
-        fill
-        className="object-cover"
-        priority
-      /> */}
+      {/* Background Image - no overlay, no opacity */}
       <Image
         src="/images/bg.png"
         alt="Background"
         fill
-        className="object-cover"
+        className="object-cover object-center"
         priority
         unoptimized
-      />  
-      {/* Optional Overlay (for better text readability) */}
-      {/* <div className="absolute inset-0 bg-black/30" /> */}
+        quality={100}
+      />
 
       {/* Main Content */}
       <div className="relative z-10 flex min-h-screen flex-col justify-between">
@@ -129,6 +211,8 @@ export default function HeroSection() {
               height={55}
               className="md:w-48"
               priority
+              unoptimized
+              quality={100}
             />
           </div>
         </div>
@@ -141,25 +225,31 @@ export default function HeroSection() {
               FIND YOUR BYD
             </h2>
           </div>
-          <div className="pt-2">
+
+          {/* Car Image - fixed: use large intrinsic dimensions */}
+          <div className="relative w-full max-w-2xl px-4">
             <Image
               src="/images/car.png"
-              alt="car"
-              width={100}
-              height={100}
-              className="md:w-xl"
+              alt="BYD Seal U car"
+              width={900}
+              height={520}
+              className="w-full h-auto object-contain"
               priority
+              unoptimized
+              quality={100}
             />
           </div>
+
           {/* Unlock Button */}
           <div className="pb-10 px-6 md:pb-12 w-full flex justify-center">
-            <button className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl  border-2 border-white/70 px-8 py-5 text-lg font-medium text-black backdrop-blur-md transition-all hover:bg-white hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95">
+            <button className="group flex w-full max-w-lg items-center justify-center gap-3 rounded-3xl border-2 border-white/70 bg-white/10 px-8 py-5 text-lg font-medium text-white backdrop-blur-md transition-all hover:bg-white hover:text-black hover:shadow-3xl hover:scale-[1.02] active:scale-95">
               <Image
                 src="/images/lock-icon.png"
                 alt="Lock Icon"
                 width={22}
                 height={22}
                 priority
+                unoptimized
               />
               Tap To Unlock
             </button>
