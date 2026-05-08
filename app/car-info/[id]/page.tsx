@@ -464,6 +464,8 @@ import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useState } from "react";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
+import PanoramaViewer from "@/components/car/PanoramaViewer";
+import Exterior360Viewer from "@/components/car/Exterior360Viewer";
 import { NavigationItem } from "@/types/car";
 
 // ─────────────────────────────────────────────
@@ -617,6 +619,7 @@ export default function CarInfoPage() {
   >("Essential");
   const [activeTab, setActiveTab] = useState("Overview");
   const [activeNav, setActiveNav] = useState<string>("car");
+  const [viewMode, setViewMode] = useState<"static" | "interior" | "exterior">("static");
 
   const handleNavClick = (itemId: string) => {
     setActiveNav(itemId);
@@ -670,27 +673,62 @@ export default function CarInfoPage() {
           </div>
         </div>
 
-        {/* ── Car Image — full width, no card/box, transparent bg ── */}
-        <div className="relative w-full mt-2">
-          {/* Watermark text behind car */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-            <span className="text-[5.5rem] font-black text-gray-200/60 tracking-tighter select-none whitespace-nowrap">
-              {car.name.replace("BYD ", "")}
-            </span>
-          </div>
+        {/* ── Car Image or 360 Viewer ── */}
+        <div className="relative w-full mt-2 h-[320px]">
+          {viewMode === "static" && (
+            <>
+              {/* Watermark text behind car */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <span className="text-[5.5rem] font-black text-gray-200/60 tracking-tighter select-none whitespace-nowrap">
+                  {car.name.replace("BYD ", "")}
+                </span>
+              </div>
 
-          {/* Car image — full width, no box, no shadow */}
-          <div className="relative z-10 w-full px-4">
-            <Image
-              src={car.image}
-              alt={car.name}
-              width={700}
-              height={400}
-              className="w-full h-auto object-contain"
-              priority
-              unoptimized
-            />
-          </div>
+              {/* Car image — full width, no box, no shadow */}
+              <div className="relative z-10 w-full px-4">
+                <Image
+                  src={car.image}
+                  alt={car.name}
+                  width={700}
+                  height={400}
+                  className="w-full h-auto object-contain"
+                  priority
+                  unoptimized
+                />
+              </div>
+            </>
+          )}
+
+          {viewMode === "interior" && (
+            <div className="relative z-10 w-full h-full px-2">
+              <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-gray-100">
+                <PanoramaViewer 
+                  image="/images/car-interior-simple.png" 
+                  className="w-full h-full"
+                />
+              </div>
+              <button 
+                onClick={() => setViewMode("static")}
+                className="absolute top-4 left-6 z-20 bg-black/50 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md"
+              >
+                Close 360°
+              </button>
+            </div>
+          )}
+
+          {viewMode === "exterior" && (
+            <div className="relative z-10 w-full h-full px-2">
+              <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-gray-50">
+                <Exterior360Viewer />
+              </div>
+              <button 
+                onClick={() => setViewMode("static")}
+                className="absolute top-4 left-6 z-20 bg-black/50 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md"
+              >
+                Close 360°
+              </button>
+            </div>
+          )}
 
           {/* ANCAP Badge — floating top right */}
           <div className="absolute top-2 right-4 z-20 flex flex-col items-center bg-white/95 rounded-xl px-2 py-1.5 shadow-md">
@@ -713,35 +751,38 @@ export default function CarInfoPage() {
               ))}
             </div>
           </div>
+
+          {/* 360° Floating Badges — Bottom Center */}
+          {viewMode === "static" && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2 w-full px-4 justify-center">
+              <button 
+                onClick={() => setViewMode("exterior")}
+                className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/50 active:scale-95 transition-all"
+              >
+                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5 text-white">
+                    <path d="M12 4C7 4 3 7.6 3 12s4 8 9 8 9-3.6 9-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span className="text-[10px] font-black text-gray-900">EXTERIOR 360°</span>
+              </button>
+
+              <button 
+                onClick={() => setViewMode("interior")}
+                className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/50 active:scale-95 transition-all"
+              >
+                <div className="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5 text-white">
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" fill="currentColor" />
+                    <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </div>
+                <span className="text-[10px] font-black text-gray-900">INTERIOR 360°</span>
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* 360° */}
-        <div className="flex items-center gap-1.5 mb-4 mt-1">
-          <div className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              className="w-4 h-4 text-gray-500"
-            >
-              <path
-                d="M12 4C7 4 3 7.6 3 12s4 8 9 8 9-3.6 9-8"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-              <path
-                d="M17 4l2 2-2 2"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <span className="text-sm font-semibold text-gray-700 tracking-wide">
-            360°
-          </span>
-        </div>
 
         {/* Color + Variant */}
         <div className="w-full px-5 flex items-center justify-between mb-5">
@@ -750,11 +791,10 @@ export default function CarInfoPage() {
               <button
                 key={c.id}
                 onClick={() => setSelectedColor(c.id)}
-                className={`w-8 h-8 rounded-full transition-all duration-200 ${
-                  selectedColor === c.id
-                    ? "ring-2 ring-offset-2 ring-gray-400 scale-110"
-                    : "ring-1 ring-gray-200"
-                }`}
+                className={`w-8 h-8 rounded-full transition-all duration-200 ${selectedColor === c.id
+                  ? "ring-2 ring-offset-2 ring-gray-400 scale-110"
+                  : "ring-1 ring-gray-200"
+                  }`}
                 style={{ backgroundColor: c.bg }}
               />
             ))}
@@ -764,11 +804,10 @@ export default function CarInfoPage() {
               <button
                 key={v}
                 onClick={() => setSelectedVariant(v)}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
-                  selectedVariant === v
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-500"
-                }`}
+                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${selectedVariant === v
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500"
+                  }`}
               >
                 {v}
               </button>
@@ -811,9 +850,8 @@ export default function CarInfoPage() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 pb-2.5 text-sm font-semibold transition-all duration-200 relative ${
-                activeTab === tab ? "text-gray-900" : "text-gray-400"
-              }`}
+              className={`flex-1 pb-2.5 text-sm font-semibold transition-all duration-200 relative ${activeTab === tab ? "text-gray-900" : "text-gray-400"
+                }`}
             >
               {tab}
               {activeTab === tab && (
