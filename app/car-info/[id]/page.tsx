@@ -5,7 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useState } from "react";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import { NavigationItem } from "@/types/car";
-import { CAR_DATA } from "../carData";
+import { CAR_DATA, DEFAULT_CAR } from "../carData";
 
 const colorOptions = [
   { id: "cream", bg: "#E8E0D0" },
@@ -275,10 +275,36 @@ export default function CarInfoPage() {
             </div>
           </div>
 
+          {/* Interior/Exterior Tabs */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex bg-gray-100 rounded-lg p-1">
+              <button
+                onClick={() => setViewMode("exterior")}
+                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                  viewMode === "exterior"
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                Exterior
+              </button>
+              <button
+                onClick={() => setViewMode("interior")}
+                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                  viewMode === "interior"
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                Interior
+              </button>
+            </div>
+          </div>
+
           {/* Main Car Display */}
           <div className="relative mb-8">
             <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden bg-gray-50">
-              {car.exteriorColors.length > 0 && (
+              {viewMode === "exterior" && car.exteriorColors.length > 0 && (
                 <Image
                   src={
                     car.exteriorColors.find(
@@ -292,16 +318,25 @@ export default function CarInfoPage() {
                   unoptimized
                 />
               )}
+              {viewMode === "interior" && car.interiorColors.length > 0 && (
+                <Image
+                  src={car.interiorColors[0]?.image || "/images/car.png"}
+                  alt={`${car.name} Interior`}
+                  fill
+                  className="object-contain"
+                  unoptimized
+                />
+              )}
             </div>
 
             {/* Car Info Badge */}
             <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
               <p className="text-sm font-semibold text-gray-900">
                 {car.name}{" "}
-                {
+                {viewMode === "exterior" &&
                   car.exteriorColors.find((c) => c.colorCode === selectedColor)
-                    ?.name
-                }{" "}
+                    ?.name}
+                {viewMode === "interior" && car.interiorColors[0]?.name}{" "}
                 <span className="text-blue-500 capitalize">
                   {selectedVariant}
                 </span>
@@ -309,72 +344,76 @@ export default function CarInfoPage() {
             </div>
           </div>
 
-          {/* Color Selection */}
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">
-              Choose Color
-            </h3>
-            <div className="flex justify-center gap-3 flex-wrap">
-              {car.exteriorColors.map((color) => (
-                <button
-                  key={color.colorCode}
-                  onClick={() => setSelectedColor(color.colorCode)}
-                  className={`relative w-12 h-12 rounded-full border-2 transition-all ${
-                    selectedColor === color.colorCode
-                      ? "border-gray-900 scale-110"
-                      : "border-gray-300 hover:border-gray-500"
-                  }`}
-                  style={{
-                    backgroundColor:
-                      color.colorCode === "white"
-                        ? "#f8f9fa"
-                        : color.colorCode === "blue"
-                          ? "#007bff"
-                          : color.colorCode === "yellow"
-                            ? "#ffc107"
-                            : "#212529",
-                  }}
-                  title={color.name}
-                >
-                  {selectedColor === color.colorCode && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-white rounded-full border border-gray-900"></div>
-                    </div>
-                  )}
-                </button>
-              ))}
+          {/* Color Selection - Only show in exterior mode */}
+          {viewMode === "exterior" && (
+            <div className="mb-8">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">
+                Choose Color
+              </h3>
+              <div className="flex justify-center gap-3 flex-wrap">
+                {car.exteriorColors.map((color) => (
+                  <button
+                    key={color.colorCode}
+                    onClick={() => setSelectedColor(color.colorCode)}
+                    className={`relative w-12 h-12 rounded-full border-2 transition-all ${
+                      selectedColor === color.colorCode
+                        ? "border-gray-900 scale-110"
+                        : "border-gray-300 hover:border-gray-500"
+                    }`}
+                    style={{
+                      backgroundColor:
+                        color.colorCode === "white"
+                          ? "#f8f9fa"
+                          : color.colorCode === "blue"
+                            ? "#007bff"
+                            : color.colorCode === "yellow"
+                              ? "#ffc107"
+                              : "#212529",
+                    }}
+                    title={color.name}
+                  >
+                    {selectedColor === color.colorCode && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-2 h-2 bg-white rounded-full border border-gray-900"></div>
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <p className="text-center text-sm text-gray-600 mt-2">
+                {
+                  car.exteriorColors.find((c) => c.colorCode === selectedColor)
+                    ?.name
+                }
+              </p>
             </div>
-            <p className="text-center text-sm text-gray-600 mt-2">
-              {
-                car.exteriorColors.find((c) => c.colorCode === selectedColor)
-                  ?.name
-              }
-            </p>
-          </div>
+          )}
 
-          {/* Variant Selection */}
-          <div className="flex justify-center gap-4">
-            <button
-              onClick={() => setSelectedVariant("essential")}
-              className={`px-8 py-3 rounded-full font-semibold transition-all ${
-                selectedVariant === "essential"
-                  ? "bg-gray-900 text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
-            >
-              Essential
-            </button>
-            <button
-              onClick={() => setSelectedVariant("premium")}
-              className={`px-8 py-3 rounded-full font-semibold transition-all ${
-                selectedVariant === "premium"
-                  ? "bg-gray-900 text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
-            >
-              Premium
-            </button>
-          </div>
+          {/* Variant Selection - Only show in exterior mode */}
+          {viewMode === "exterior" && (
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => setSelectedVariant("essential")}
+                className={`px-8 py-3 rounded-full font-semibold transition-all ${
+                  selectedVariant === "essential"
+                    ? "bg-gray-900 text-white"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+              >
+                Essential
+              </button>
+              <button
+                onClick={() => setSelectedVariant("premium")}
+                className={`px-8 py-3 rounded-full font-semibold transition-all ${
+                  selectedVariant === "premium"
+                    ? "bg-gray-900 text-white"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+              >
+                Premium
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

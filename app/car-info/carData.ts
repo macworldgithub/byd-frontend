@@ -10,7 +10,14 @@ export const CAR_DATA: Record<
     showcaseImages: string[];
     videos: string[];
     showcaseFeatures: { image: string; title: string; description: string }[];
-    exteriorColors: { name: string; colorCode: string; images: { front: { essential: string; premium: string }; side: { essential: string; premium: string } } }[];
+    exteriorColors: {
+      name: string;
+      colorCode: string;
+      images: {
+        front: { essential: string; premium: string };
+        side: { essential: string; premium: string };
+      };
+    }[];
     interiorColors: { name: string; image: string }[];
     specs: { value: string; unit: string; label: string }[];
     overview: { heading: string; body: string };
@@ -279,14 +286,51 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 2",
     subtitle: "The Smart Urban Electric",
     status: "New Electric",
-    heroImage: "/images/car2.png",
-    bannerImage: "/images/car2.png",
-    collageImages: ["/images/car2.png", "/images/car2.png"],
-    showcaseImages: ["/images/car2.png", "/images/car2.png"],
+    heroImage: "/images/atto2/atto2-hero.jpg",
+    bannerImage: "/images/atto2/atto2-banner.jpg",
+    collageImages: [
+      "/images/atto2/atto2-collage-1.jpg",
+      "/images/atto2/atto2-collage-2.jpg",
+    ],
+    showcaseImages: [
+      "/images/atto2/atto2-showcase-1.jpg",
+      "/images/atto2/atto2-showcase-2.jpg",
+    ],
     videos: [],
     showcaseFeatures: [],
-    exteriorColors: [],
-    interiorColors: [],
+    exteriorColors: [
+      {
+        name: "Arctic Blue",
+        colorCode: "blue",
+        images: {
+          front: {
+            essential: "/images/atto2/atto2-blue-front-0.jpg",
+            premium: "/images/atto2/atto2-blue-front-1.jpg",
+          },
+          side: {
+            essential: "/images/atto2/atto2-blue-side-0.jpg",
+            premium: "/images/atto2/atto2-blue-side-1.jpg",
+          },
+        },
+      },
+      {
+        name: "Midnight Black",
+        colorCode: "black",
+        images: {
+          front: {
+            essential: "/images/atto2/atto2-black-front-0.jpg",
+            premium: "/images/atto2/atto2-black-front-1.jpg",
+          },
+          side: {
+            essential: "/images/atto2/atto2-black-side-0.jpg",
+            premium: "/images/atto2/atto2-black-side-1.jpg",
+          },
+        },
+      },
+    ],
+    interiorColors: [
+      { name: "Black + Grey", image: "/images/atto2/atto2-interior.jpg" },
+    ],
     specs: [
       { value: "7.9", unit: "s", label: "0-100Km/h" },
       { value: "130", unit: "kW", label: "Power" },
@@ -345,14 +389,51 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 3",
     subtitle: "The Family Electric SUV",
     status: "New Electric",
-    heroImage: "/images/car3.png",
-    bannerImage: "/images/car3.png",
-    collageImages: ["/images/car3.png", "/images/car3.png"],
-    showcaseImages: ["/images/car3.png", "/images/car3.png"],
+    heroImage: "/images/atto3/atto3-hero.jpg",
+    bannerImage: "/images/atto3/atto3-banner.jpg",
+    collageImages: [
+      "/images/atto3/atto3-collage-1.jpg",
+      "/images/atto3/atto3-collage-2.jpg",
+    ],
+    showcaseImages: [
+      "/images/atto3/atto3-showcase-1.jpg",
+      "/images/atto3/atto3-showcase-2.jpg",
+    ],
     videos: [],
     showcaseFeatures: [],
-    exteriorColors: [],
-    interiorColors: [],
+    exteriorColors: [
+      {
+        name: "Ocean Blue",
+        colorCode: "blue",
+        images: {
+          front: {
+            essential: "/images/atto3/atto3-blue-front-0.jpg",
+            premium: "/images/atto3/atto3-blue-front-1.jpg",
+          },
+          side: {
+            essential: "/images/atto3/atto3-blue-side-0.jpg",
+            premium: "/images/atto3/atto3-blue-side-1.jpg",
+          },
+        },
+      },
+      {
+        name: "Midnight Black",
+        colorCode: "black",
+        images: {
+          front: {
+            essential: "/images/atto3/atto3-black-front-0.jpg",
+            premium: "/images/atto3/atto3-black-front-1.jpg",
+          },
+          side: {
+            essential: "/images/atto3/atto3-black-side-0.jpg",
+            premium: "/images/atto3/atto3-black-side-1.jpg",
+          },
+        },
+      },
+    ],
+    interiorColors: [
+      { name: "Black + Grey", image: "/images/atto3/atto3-interior.jpg" },
+    ],
     specs: [
       { value: "7.3", unit: "s", label: "0-100Km/h" },
       { value: "150", unit: "kW", label: "Power" },

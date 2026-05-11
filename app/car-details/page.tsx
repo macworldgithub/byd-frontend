@@ -7,6 +7,7 @@ import BottomNavigation from "@/components/navigation/BottomNavigation";
 import BuildYourDreams from "@/components/marketing/BuildYourDreams";
 import { Car, NavigationItem } from "@/types/car";
 import { useRouter } from "next/navigation";
+import { CAR_DATA } from "../car-info/carData";
 
 const sampleCars: Car[] = [
   {
@@ -14,9 +15,8 @@ const sampleCars: Car[] = [
     name: "BYD ATTO 1",
     type: "Electric",
     status: "New",
-    description: "Built for the Big City",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-1.jpg",
+    description: "Built for Big City",
+    image: CAR_DATA["1"].heroImage,
   },
   {
     id: "2",
@@ -24,8 +24,7 @@ const sampleCars: Car[] = [
     type: "Electric",
     status: "New",
     description: "Distinctive city cruiser",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-2/showcase-1.jpg",
+    image: CAR_DATA["2"].heroImage,
   },
   {
     id: "3",
@@ -33,71 +32,7 @@ const sampleCars: Car[] = [
     type: "Electric",
     status: "New",
     description: "Refined and responsive",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-3/configurator/black-0-1.jpg",
-  },
-  {
-    id: "4",
-    name: "BYD Dolphin",
-    type: "Electric",
-    status: "New",
-    description: "Compact and efficient",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/dolphin/configurator/white-0-1.jpg",
-  },
-  {
-    id: "5",
-    name: "BYD Seal",
-    type: "Electric",
-    status: "New",
-    description: "Sporty with bold style",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/seal/configurator/blue-0-1.jpg",
-  },
-  {
-    id: "6",
-    name: "BYD Sealion 5",
-    type: "Electric",
-    status: "New",
-    description: "Premium presence on the road",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/sealion-5/configurator/atlantis-0-1.jpg",
-  },
-  {
-    id: "7",
-    name: "BYD Sealion 6",
-    type: "Electric",
-    status: "New",
-    description: "Bold performance and comfort",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/sealion-6/banner-1.jpg",
-  },
-  {
-    id: "8",
-    name: "BYD Sealion 7",
-    type: "Electric",
-    status: "New",
-    description: "Dynamic design with premium flair",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/sealion-7/configurator/blue-0-1.jpg",
-  },
-  {
-    id: "9",
-    name: "BYD Sealion 8",
-    type: "Electric",
-    status: "New",
-    description: "Modern luxury, reimagined",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/sealion-8/configurator/green-0-1.jpg",
-  },
-  {
-    id: "10",
-    name: "BYD Shark 6",
-    type: "Electric",
-    status: "New",
-    description: "Advanced performance in blue",
-    image:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/shark-6/configurator/blue-0-1.jpg",
+    image: CAR_DATA["3"].heroImage,
   },
 ];
 
