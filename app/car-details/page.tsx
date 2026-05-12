@@ -157,7 +157,7 @@ export default function CarDetailsPage() {
       `}</style>
 
       <div className="flex-1 overflow-y-auto pb-20">
-        <BuildYourDreams />
+        {/* <BuildYourDreams /> */}
 
         <div className="px-4 mb-4">
           {/* <CarShowcase

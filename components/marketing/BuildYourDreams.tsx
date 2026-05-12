@@ -9,9 +9,9 @@ export default function BuildYourDreams() {
       <p className="text-white text-lg leading-relaxed mb-6">
         An offline-first guided learning experience for every BYD model. Explore, configure, and continue on your phone with a single tap.
       </p>
-      <button className="w-full bg-[#555557] border border-white text-white px-6 py-6 rounded-xl font-medium hover:bg-[#4a4a4f] transition-colors text-lg">
+      {/* <button className="w-full bg-[#555557] border border-white text-white px-6 py-6 rounded-xl font-medium hover:bg-[#4a4a4f] transition-colors text-lg">
         Start Guide Tour
-      </button>
+      </button> */}
     </div>
   );
 }
