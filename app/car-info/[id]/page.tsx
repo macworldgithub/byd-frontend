@@ -630,9 +630,9 @@
 //       {/* ── GLOBAL STYLES ── */}
 //       <style jsx global>{`
 //         @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&display=swap');
-        
+
 //         * { box-sizing: border-box; }
-        
+
 //         :root {
 //           --byd-blue: #00A8E8;
 //           --byd-blue-glow: rgba(0, 168, 232, 0.3);
@@ -650,7 +650,7 @@
 //           transform: translateY(40px);
 //           animation: sectionReveal 0.8s ease forwards;
 //         }
-        
+
 //         @keyframes sectionReveal {
 //           to { opacity: 1; transform: translateY(0); }
 //         }
@@ -1401,7 +1401,7 @@ const SECTIONS: { id: SectionId; label: string }[] = [
 export default function CarInfoPage() {
   const router = useRouter();
   const params = useParams();
-  const id = Array.isArray(params?.id) ? params.id[0] : params?.id ?? "1";
+  const id = Array.isArray(params?.id) ? params.id[0] : (params?.id ?? "1");
   const car = CAR_DATA[id] ?? DEFAULT_CAR;
 
   // Section state
@@ -1414,7 +1414,7 @@ export default function CarInfoPage() {
 
   // Configurator state
   const [selectedColor, setSelectedColor] = useState(
-    car.exteriorColors[0]?.colorCode ?? "white"
+    car.exteriorColors[0]?.colorCode ?? "white",
   );
   const [selectedView, setSelectedView] = useState<"front" | "side">("front");
   const [selectedVariant, setSelectedVariant] = useState<
@@ -1477,7 +1477,7 @@ export default function CarInfoPage() {
         setIsTransitioning(false);
       }, 350);
     },
-    [isTransitioning, activeSection]
+    [isTransitioning, activeSection],
   );
 
   const nextSection = useCallback(() => {
@@ -1529,10 +1529,10 @@ export default function CarInfoPage() {
   };
 
   const colorMap: Record<string, string> = {
-    white: "#F5F4F0",
-    blue: "#1A56D6",
-    yellow: "#F5C200",
-    black: "#1A1A1A",
+    white: "#d9d4c8",
+    blue: "#8299ac",
+    yellow: "#b5bb4d",
+    black: "#2a2e37",
     red: "#C1121F",
     grey: "#8E8E93",
     silver: "#C0C0C0",
@@ -1575,7 +1575,11 @@ export default function CarInfoPage() {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Back
         </button>
@@ -1608,7 +1612,9 @@ export default function CarInfoPage() {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-20 md:px-8 md:pb-24 lg:px-12">
-        <div className="section-label mb-3">Electric Vehicle · {car.type ?? "EV"}</div>
+        <div className="section-label mb-3">
+          Electric Vehicle · {car.type ?? "EV"}
+        </div>
 
         <h1
           className="hero-title text-white mb-3"
@@ -1695,12 +1701,16 @@ export default function CarInfoPage() {
             <div
               style={{
                 height: 2,
-                background: "linear-gradient(90deg,transparent,#00A8E8,transparent)",
+                background:
+                  "linear-gradient(90deg,transparent,#00A8E8,transparent)",
                 marginBottom: 16,
                 borderRadius: 2,
               }}
             />
-            <div className="stat-number" style={{ fontSize: "clamp(30px,5vw,56px)" }}>
+            <div
+              className="stat-number"
+              style={{ fontSize: "clamp(30px,5vw,56px)" }}
+            >
               {spec.value}
             </div>
             <div
@@ -1745,7 +1755,13 @@ export default function CarInfoPage() {
         {car.overview.heading}
       </h2>
 
-      <div style={{ borderLeft: "3px solid #00A8E8", paddingLeft: 28, marginBottom: 32 }}>
+      <div
+        style={{
+          borderLeft: "3px solid #00A8E8",
+          paddingLeft: 28,
+          marginBottom: 32,
+        }}
+      >
         <p
           style={{
             fontFamily: "'Barlow',sans-serif",
@@ -1764,7 +1780,13 @@ export default function CarInfoPage() {
         className="relative overflow-hidden rounded-sm"
         style={{ height: "clamp(170px,25vw,300px)" }}
       >
-        <Image src={car.bannerImage} alt="Banner" fill className="object-cover" unoptimized />
+        <Image
+          src={car.bannerImage}
+          alt="Banner"
+          fill
+          className="object-cover"
+          unoptimized
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -1807,8 +1829,17 @@ export default function CarInfoPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {car.showcaseFeatures.map((feature, i) => (
           <div key={i} className="flex gap-4 p-4 rounded-sm tech-card">
-            <div className="relative shrink-0 overflow-hidden rounded-sm" style={{ width: 72, height: 72 }}>
-              <Image src={feature.image} alt={feature.title} fill className="object-cover" unoptimized />
+            <div
+              className="relative shrink-0 overflow-hidden rounded-sm"
+              style={{ width: 72, height: 72 }}
+            >
+              <Image
+                src={feature.image}
+                alt={feature.title}
+                fill
+                className="object-cover"
+                unoptimized
+              />
             </div>
             <div>
               <h3
@@ -1859,14 +1890,27 @@ export default function CarInfoPage() {
         }}
       >
         {car.videos[0] ? (
-          <video src={car.videos[0]} autoPlay muted loop className="w-full h-full object-cover" />
+          <video
+            src={car.videos[0]}
+            autoPlay
+            muted
+            loop
+            className="w-full h-full object-cover"
+          />
         ) : (
-          <Image src={car.heroImage} alt="Tech" fill className="object-cover" unoptimized />
+          <Image
+            src={car.heroImage}
+            alt="Tech"
+            fill
+            className="object-cover"
+            unoptimized
+          />
         )}
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(0deg,rgba(8,10,14,0.6) 0%,transparent 50%)",
+            background:
+              "linear-gradient(0deg,rgba(8,10,14,0.6) 0%,transparent 50%)",
           }}
         />
       </div>
@@ -1942,30 +1986,35 @@ export default function CarInfoPage() {
           border: "1px solid rgba(0,168,232,0.1)",
         }}
       >
-        {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map(
-          (pos, i) => (
-            <div
-              key={i}
-              className={`absolute ${pos} w-8 h-8 z-10`}
-              style={{
-                borderTop: i < 2 ? "2px solid rgba(0,168,232,0.4)" : "none",
-                borderBottom: i >= 2 ? "2px solid rgba(0,168,232,0.4)" : "none",
-                borderLeft: i % 2 === 0 ? "2px solid rgba(0,168,232,0.4)" : "none",
-                borderRight: i % 2 === 1 ? "2px solid rgba(0,168,232,0.4)" : "none",
-              }}
-            />
-          )
-        )}
+        {[
+          "top-0 left-0",
+          "top-0 right-0",
+          "bottom-0 left-0",
+          "bottom-0 right-0",
+        ].map((pos, i) => (
+          <div
+            key={i}
+            className={`absolute ${pos} w-8 h-8 z-10`}
+            style={{
+              borderTop: i < 2 ? "2px solid rgba(0,168,232,0.4)" : "none",
+              borderBottom: i >= 2 ? "2px solid rgba(0,168,232,0.4)" : "none",
+              borderLeft:
+                i % 2 === 0 ? "2px solid rgba(0,168,232,0.4)" : "none",
+              borderRight:
+                i % 2 === 1 ? "2px solid rgba(0,168,232,0.4)" : "none",
+            }}
+          />
+        ))}
 
         {viewMode === "exterior" && car.exteriorColors.length > 0 && (
           <Image
             src={
-              car.exteriorColors.find((c) => c.colorCode === selectedColor)?.images[selectedView][selectedVariant] ||
-              "/images/car.png"
+              car.exteriorColors.find((c) => c.colorCode === selectedColor)
+                ?.images[selectedView][selectedVariant] || "/images/car.png"
             }
             alt={`${car.name} ${selectedColor}`}
             fill
-            className="object-contain"
+            className="object-cover"
             unoptimized
           />
         )}
@@ -1975,7 +2024,7 @@ export default function CarInfoPage() {
             src={car.interiorColors[0]?.image || "/images/car.png"}
             alt={`${car.name} Interior`}
             fill
-            className="object-contain"
+            className="object-cover"
             unoptimized
           />
         )}
@@ -2090,7 +2139,10 @@ export default function CarInfoPage() {
                         : "none",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    transform: selectedColor === color.colorCode ? "scale(1.12)" : "scale(1)",
+                    transform:
+                      selectedColor === color.colorCode
+                        ? "scale(1.12)"
+                        : "scale(1)",
                   }}
                 />
               ))}
@@ -2106,7 +2158,14 @@ export default function CarInfoPage() {
             border: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#00A8E8" }} />
+          <div
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "#00A8E8",
+            }}
+          />
           <span
             style={{
               fontFamily: "'Barlow Condensed',sans-serif",
@@ -2117,13 +2176,11 @@ export default function CarInfoPage() {
             }}
           >
             {viewMode === "exterior"
-              ? car.exteriorColors.find((c) => c.colorCode === selectedColor)?.name
+              ? car.exteriorColors.find((c) => c.colorCode === selectedColor)
+                  ?.name
               : car.interiorColors[0]?.name}
             {viewMode === "exterior" && (
-              <span style={{ color: "#00A8E8" }}>
-                {" "}
-                · {selectedVariant}
-              </span>
+              <span style={{ color: "#00A8E8" }}> · {selectedVariant}</span>
             )}
           </span>
         </div>
@@ -2307,7 +2364,10 @@ export default function CarInfoPage() {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {car.models.map((model, i) => (
-          <div key={i} className={`model-card rounded-sm p-6 ${i === 1 ? "featured" : ""}`}>
+          <div
+            key={i}
+            className={`model-card rounded-sm p-6 ${i === 1 ? "featured" : ""}`}
+          >
             {i === 1 && (
               <div
                 style={{
@@ -2384,7 +2444,11 @@ export default function CarInfoPage() {
                       strokeWidth={2.5}
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   </div>
                   <span
@@ -2439,10 +2503,18 @@ export default function CarInfoPage() {
         <div className="tech-card overflow-hidden">
           {car.moreInfo?.handbook && (
             <div className="relative" style={{ height: 180 }}>
-              <Image src={car.moreInfo.handbook} alt="Handbook" fill className="object-cover" unoptimized />
+              <Image
+                src={car.moreInfo.handbook}
+                alt="Handbook"
+                fill
+                className="object-cover"
+                unoptimized
+              />
               <div
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(0deg,#0D1117,transparent 60%)" }}
+                style={{
+                  background: "linear-gradient(0deg,#0D1117,transparent 60%)",
+                }}
               />
             </div>
           )}
@@ -2505,7 +2577,8 @@ export default function CarInfoPage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: "linear-gradient(135deg,rgba(0,168,232,0.05),rgba(0,168,232,0.12))",
+              background:
+                "linear-gradient(135deg,rgba(0,168,232,0.05),rgba(0,168,232,0.12))",
             }}
           >
             <svg
@@ -2602,7 +2675,7 @@ export default function CarInfoPage() {
       onTouchEnd={handleTouchEnd}
     >
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&display=swap");
 
         * {
           box-sizing: border-box;
@@ -2628,11 +2701,15 @@ export default function CarInfoPage() {
         }
 
         .spec-card::before {
-          content: '';
+          content: "";
           position: absolute;
           inset: 0;
           border-radius: inherit;
-          background: linear-gradient(135deg, rgba(0, 168, 232, 0.06) 0%, transparent 60%);
+          background: linear-gradient(
+            135deg,
+            rgba(0, 168, 232, 0.06) 0%,
+            transparent 60%
+          );
           opacity: 0;
           transition: opacity 0.3s;
           pointer-events: none;
@@ -2654,7 +2731,11 @@ export default function CarInfoPage() {
         }
 
         .price-badge {
-          background: linear-gradient(135deg, rgba(0, 168, 232, 0.15), rgba(0, 168, 232, 0.05));
+          background: linear-gradient(
+            135deg,
+            rgba(0, 168, 232, 0.15),
+            rgba(0, 168, 232, 0.05)
+          );
           border: 1px solid rgba(0, 168, 232, 0.3);
         }
 
@@ -2668,7 +2749,7 @@ export default function CarInfoPage() {
         }
 
         .hero-title {
-          font-family: 'Barlow Condensed', sans-serif;
+          font-family: "Barlow Condensed", sans-serif;
           font-weight: 900;
           text-transform: uppercase;
           letter-spacing: -0.01em;
@@ -2676,7 +2757,7 @@ export default function CarInfoPage() {
         }
 
         .section-label {
-          font-family: 'Barlow Condensed', sans-serif;
+          font-family: "Barlow Condensed", sans-serif;
           font-size: 11px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
@@ -2685,7 +2766,7 @@ export default function CarInfoPage() {
         }
 
         .section-title {
-          font-family: 'Barlow Condensed', sans-serif;
+          font-family: "Barlow Condensed", sans-serif;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.02em;
@@ -2713,7 +2794,9 @@ export default function CarInfoPage() {
 
         .model-card:hover {
           border-color: rgba(0, 168, 232, 0.35);
-          box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 168, 232, 0.08);
+          box-shadow:
+            0 24px 64px rgba(0, 0, 0, 0.6),
+            0 0 40px rgba(0, 168, 232, 0.08);
           transform: translateY(-4px);
         }
 
@@ -2723,9 +2806,13 @@ export default function CarInfoPage() {
         }
 
         .stat-number {
-          font-family: 'Barlow Condensed', sans-serif;
+          font-family: "Barlow Condensed", sans-serif;
           font-weight: 900;
-          background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+          background: linear-gradient(
+            135deg,
+            #fff 0%,
+            rgba(255, 255, 255, 0.7) 100%
+          );
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -2742,7 +2829,7 @@ export default function CarInfoPage() {
           border-radius: 6px;
           padding: 8px 16px;
           color: white;
-          font-family: 'Barlow Condensed', sans-serif;
+          font-family: "Barlow Condensed", sans-serif;
           font-size: 13px;
           font-weight: 600;
           letter-spacing: 0.1em;
@@ -2766,7 +2853,9 @@ export default function CarInfoPage() {
 
         .tech-card:hover {
           border-color: rgba(0, 168, 232, 0.3);
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 24px rgba(0, 168, 232, 0.06);
+          box-shadow:
+            0 16px 48px rgba(0, 0, 0, 0.5),
+            0 0 24px rgba(0, 168, 232, 0.06);
         }
 
         .storage-box {
@@ -2894,7 +2983,14 @@ export default function CarInfoPage() {
               : "slide-in-right"
         }`}
         style={{
-          paddingBottom: currentSection.id === "hero" ? (isTablet ? 118 : 96) : isTablet ? 144 : 104,
+          paddingBottom:
+            currentSection.id === "hero"
+              ? isTablet
+                ? 118
+                : 96
+              : isTablet
+                ? 144
+                : 104,
         }}
       >
         {sectionRenderers[currentSection.id]()}
@@ -2913,7 +3009,8 @@ export default function CarInfoPage() {
                 width: i === activeSection ? 20 : 6,
                 height: 6,
                 borderRadius: 3,
-                background: i === activeSection ? "#00A8E8" : "rgba(255,255,255,0.2)",
+                background:
+                  i === activeSection ? "#00A8E8" : "rgba(255,255,255,0.2)",
                 border: "none",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
@@ -2951,8 +3048,18 @@ export default function CarInfoPage() {
               flexShrink: 0,
             }}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
 
@@ -2988,14 +3095,28 @@ export default function CarInfoPage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: activeSection === SECTIONS.length - 1 ? "rgba(0,168,232,0.3)" : "#00A8E8",
-              cursor: activeSection === SECTIONS.length - 1 ? "default" : "pointer",
+              color:
+                activeSection === SECTIONS.length - 1
+                  ? "rgba(0,168,232,0.3)"
+                  : "#00A8E8",
+              cursor:
+                activeSection === SECTIONS.length - 1 ? "default" : "pointer",
               transition: "all 0.2s",
               flexShrink: 0,
             }}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
@@ -3014,8 +3135,18 @@ export default function CarInfoPage() {
                 maxWidth: "100%",
               }}
             >
-              <svg className="w-3 h-3" fill="none" stroke="#6B7280" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-3 h-3"
+                fill="none"
+                stroke="#6B7280"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               <span
                 style={{
@@ -3029,14 +3160,28 @@ export default function CarInfoPage() {
               >
                 Swipe to explore
               </span>
-              <svg className="w-3 h-3" fill="none" stroke="#6B7280" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              <svg
+                className="w-3 h-3"
+                fill="none"
+                stroke="#6B7280"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </div>
           </div>
         )}
 
-        <BottomNavigation items={navigationItems} activeItem={activeNav} onItemClick={handleNavClick} />
+        <BottomNavigation
+          items={navigationItems}
+          activeItem={activeNav}
+          onItemClick={handleNavClick}
+        />
       </div>
     </div>
   );
