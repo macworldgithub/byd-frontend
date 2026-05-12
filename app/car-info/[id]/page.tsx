@@ -923,14 +923,14 @@ export default function CarInfoPage() {
 
       <div className="glow-line mb-6" />
 
-      <h3
+      {/* <h3
         className="section-title text-center mb-5"
         style={{ fontSize: 24, color: "#E8ECF0" }}
       >
         Clever Storage
-      </h3>
+      </h3> */}
 
-      <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+      {/* <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
         <div className="storage-box">
           <div
             style={{
@@ -982,7 +982,7 @@ export default function CarInfoPage() {
             Seats Folded
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 
