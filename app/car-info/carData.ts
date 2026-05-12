@@ -140,7 +140,9 @@ export const CAR_DATA: Record<
         },
       },
     ],
-    interiorColors: [{ name: "Black + Grey", image: "" }],
+    interiorColors: [
+      { name: "Black + Grey", image: "/images/atto-1/interior-1.jpg" },
+    ],
     specs: [
       { value: "9.1", unit: "s", label: "0–100km/h" },
       { value: "115", unit: "kW", label: "Power" },
@@ -351,7 +353,7 @@ export const CAR_DATA: Record<
       },
     ],
     interiorColors: [
-      { name: "Black + Grey", image: "/images/atto-2/feature-interior-1.jpg" },
+      { name: "Black + Grey", image: "/images/atto-2/interior-1.jpg" },
     ],
     specs: [
       { value: "7.9", unit: "s", label: "0-100Km/h" },
