@@ -125,7 +125,15 @@ export default function CarDetailsPage() {
     setSelectedCar(sampleCars[(i - 1 + sampleCars.length) % sampleCars.length]);
   };
 
-  const handleViewDetails = () => setShowModal(true);
+  // const handleViewDetails = () => setShowModal(true);
+  const handleViewDetails = () => {
+    if (selectedCar.id === "1") {
+      router.push(`/car-info/${selectedCar.id}`);
+    } else {
+      setShowModal(true);
+    }
+  };
+
   const closeModal = () => setShowModal(false);
 
   const handleNavClick = (itemId: string) => {
@@ -152,11 +160,18 @@ export default function CarDetailsPage() {
         <BuildYourDreams />
 
         <div className="px-4 mb-4">
-          <CarShowcase
+          {/* <CarShowcase
             car={selectedCar}
             onNext={handleNextCar}
             onPrev={handlePrevCar}
             onImageClick={() => router.push(`/car-info/${selectedCar.id}`)}
+            onViewDetails={handleViewDetails}
+          /> */}
+          <CarShowcase
+            car={selectedCar}
+            onNext={handleNextCar}
+            onPrev={handlePrevCar}
+            onImageClick={handleViewDetails}
             onViewDetails={handleViewDetails}
           />
         </div>

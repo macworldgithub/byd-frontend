@@ -4,6 +4,7 @@ export const CAR_DATA: Record<
     name: string;
     subtitle: string;
     status: string;
+    type: string;
     heroImage: string;
     bannerImage: string;
     collageImages: string[];
@@ -42,6 +43,7 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 1",
     subtitle: "The Compact Electric City Car",
     status: "New Electric",
+    type: "EV",
     heroImage: "/images/atto-1/hero.png",
     bannerImage: "/images/atto-1/banner-1.jpg",
     collageImages: [
@@ -282,6 +284,7 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 2",
     subtitle: "The Smart Urban Electric",
     status: "New Electric",
+    type: "EV",
     heroImage: "/images/atto-2/hero.png",
     bannerImage: "/images/atto-2/banner-1.jpg",
     collageImages: [
@@ -413,6 +416,7 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 3",
     subtitle: "The Family Electric SUV",
     status: "New Electric",
+    type: "EV",
     heroImage: "/images/atto-3/hero.png",
     bannerImage: "/images/atto-3/banner-1.jpg",
     collageImages: [
