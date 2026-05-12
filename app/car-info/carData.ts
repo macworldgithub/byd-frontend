@@ -42,17 +42,15 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 1",
     subtitle: "The Compact Electric City Car",
     status: "New Electric",
-    heroImage:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/hero.png?v=1",
-    bannerImage:
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/banner-1.jpg?v=1",
+    heroImage: "/images/atto-1/hero.png",
+    bannerImage: "/images/atto-1/banner-1.jpg",
     collageImages: [
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/collage-2.jpg?v=1",
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/collage-1.jpg?v=1",
+      "/images/atto-1/showcase-1.jpg",
+      "/images/atto-1/showcase-2.jpg",
     ],
     showcaseImages: [
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-1.jpg?v=1",
-      "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-2.jpg?v=1",
+      "/images/atto-1/showcase-1.jpg",
+      "/images/atto-1/showcase-2.jpg",
     ],
     videos: [
       "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/video-1.mp4?v=1",
@@ -60,29 +58,25 @@ export const CAR_DATA: Record<
     ],
     showcaseFeatures: [
       {
-        image:
-          "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-feature-1.jpg?v=1",
+        image: "/images/atto-1/showcase-feature-1.jpg",
         title: "A 'floating roof' and full-width LED tail-lights",
         description:
           "The C-pillar uses a dot-matrix design inspired by ice crystals, creating a floating roof effect with full-width LED tail-lights.",
       },
       {
-        image:
-          "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-feature-2.jpg?v=1",
+        image: "/images/atto-1/showcase-feature-2.jpg",
         title: "Distinctive daytime-running lights",
         description:
           "Six angled light strips create a sharp and sophisticated lighting signature.",
       },
       {
-        image:
-          "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-feature-3.jpg?v=1",
+        image: "/images/atto-1/showcase-feature-3.jpg",
         title: "Sporty rear spoiler",
         description:
           "Integrated roof spoiler improves sporty styling and aerodynamic efficiency.",
       },
       {
-        image:
-          "https://cdn.virtualyard.com.au/75df63609809c7a2052fdffe5c00a84e/2c229a16a91c75765f5b75c0997baf31/models/atto-1/showcase-feature-4.jpg?v=1",
+        image: "/images/atto-1/showcase-feature-4.jpg",
         title: "Fun flourishes",
         description:
           "Cyber punk-inspired air conditioning vent design adds a futuristic feel.",
@@ -90,58 +84,58 @@ export const CAR_DATA: Record<
     ],
     exteriorColors: [
       {
-        name: "Apricity White",
+        name: "White",
         colorCode: "white",
         images: {
           front: {
-            essential: "/images/atto1/white-front-essential.jpg",
-            premium: "/images/atto1/white-front-premium.jpg",
+            essential: "/images/atto-1/white-0-1.jpg",
+            premium: "/images/atto-1/white-1-1.jpg",
           },
           side: {
-            essential: "/images/atto1/white-side-essential.jpg",
-            premium: "/images/atto1/white-side-premium.jpg",
+            essential: "/images/atto-1/white-0-2.jpg",
+            premium: "/images/atto-1/white-1-2.jpg",
           },
         },
       },
       {
-        name: "Arctic Blue",
+        name: "Blue",
         colorCode: "blue",
         images: {
           front: {
-            essential: "/images/atto1/blue-front-essential.jpg",
-            premium: "/images/atto1/blue-front-premium.jpg",
+            essential: "/images/atto-1/blue-0-1.jpg",
+            premium: "/images/atto-1/blue-1-1.jpg",
           },
           side: {
-            essential: "/images/atto1/blue-side-essential.jpg",
-            premium: "/images/atto1/blue-side-premium.jpg",
+            essential: "/images/atto-1/blue-0-2.jpg",
+            premium: "/images/atto-1/blue-1-2.jpg",
           },
         },
       },
       {
-        name: "Pine Lime",
+        name: "Yellow",
         colorCode: "yellow",
         images: {
           front: {
-            essential: "/images/atto1/yellow-front-essential.jpg",
-            premium: "/images/atto1/yellow-front-premium.jpg",
+            essential: "/images/atto-1/yellow-0-1.jpg",
+            premium: "/images/atto-1/yellow-1-1.jpg",
           },
           side: {
-            essential: "/images/atto1/yellow-side-essential.jpg",
-            premium: "/images/atto1/yellow-side-premium.jpg",
+            essential: "/images/atto-1/yellow-0-2.jpg",
+            premium: "/images/atto-1/yellow-1-2.jpg",
           },
         },
       },
       {
-        name: "Cosmos Black",
+        name: "Black",
         colorCode: "black",
         images: {
           front: {
-            essential: "/images/atto1/black-front-essential.jpg",
-            premium: "/images/atto1/black-front-premium.jpg",
+            essential: "/images/atto-1/black-0-1.jpg",
+            premium: "/images/atto-1/black-1-1.jpg",
           },
           side: {
-            essential: "/images/atto1/black-side-essential.jpg",
-            premium: "/images/atto1/black-side-premium.jpg",
+            essential: "/images/atto-1/black-0-2.jpg",
+            premium: "/images/atto-1/black-1-2.jpg",
           },
         },
       },
@@ -286,50 +280,78 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 2",
     subtitle: "The Smart Urban Electric",
     status: "New Electric",
-    heroImage: "/images/atto2/atto2-hero.jpg",
-    bannerImage: "/images/atto2/atto2-banner.jpg",
+    heroImage: "/images/atto-2/hero.png",
+    bannerImage: "/images/atto-2/banner-1.jpg",
     collageImages: [
-      "/images/atto2/atto2-collage-1.jpg",
-      "/images/atto2/atto2-collage-2.jpg",
+      "/images/atto-2/showcase-1.jpg",
+      "/images/atto-2/showcase-2.jpg",
     ],
     showcaseImages: [
-      "/images/atto2/atto2-showcase-1.jpg",
-      "/images/atto2/atto2-showcase-2.jpg",
+      "/images/atto-2/showcase-1.jpg",
+      "/images/atto-2/showcase-2.jpg",
     ],
     videos: [],
     showcaseFeatures: [],
     exteriorColors: [
       {
-        name: "Arctic Blue",
-        colorCode: "blue",
+        name: "White",
+        colorCode: "white",
         images: {
           front: {
-            essential: "/images/atto2/atto2-blue-front-0.jpg",
-            premium: "/images/atto2/atto2-blue-front-1.jpg",
+            essential: "/images/atto-2/white-0-1.jpg",
+            premium: "/images/atto-2/white-1-1.jpg",
           },
           side: {
-            essential: "/images/atto2/atto2-blue-side-0.jpg",
-            premium: "/images/atto2/atto2-blue-side-1.jpg",
+            essential: "/images/atto-2/white-0-2.jpg",
+            premium: "/images/atto-2/white-1-2.jpg",
           },
         },
       },
       {
-        name: "Midnight Black",
+        name: "Black",
         colorCode: "black",
         images: {
           front: {
-            essential: "/images/atto2/atto2-black-front-0.jpg",
-            premium: "/images/atto2/atto2-black-front-1.jpg",
+            essential: "/images/atto-2/black-0-1.jpg",
+            premium: "/images/atto-2/black-1-1.jpg",
           },
           side: {
-            essential: "/images/atto2/atto2-black-side-0.jpg",
-            premium: "/images/atto2/atto2-black-side-1.jpg",
+            essential: "/images/atto-2/black-0-2.jpg",
+            premium: "/images/atto-2/black-1-2.jpg",
+          },
+        },
+      },
+      {
+        name: "Grey",
+        colorCode: "grey",
+        images: {
+          front: {
+            essential: "/images/atto-2/grey-0-1.jpg",
+            premium: "/images/atto-2/grey-1-1.jpg",
+          },
+          side: {
+            essential: "/images/atto-2/grey-0-2.jpg",
+            premium: "/images/atto-2/grey-1-2.jpg",
+          },
+        },
+      },
+      {
+        name: "Mist",
+        colorCode: "mist",
+        images: {
+          front: {
+            essential: "/images/atto-2/mist-0-1.jpg",
+            premium: "/images/atto-2/mist-1-1.jpg",
+          },
+          side: {
+            essential: "/images/atto-2/mist-0-2.jpg",
+            premium: "/images/atto-2/mist-1-2.jpg",
           },
         },
       },
     ],
     interiorColors: [
-      { name: "Black + Grey", image: "/images/atto2/atto2-interior.jpg" },
+      { name: "Black + Grey", image: "/images/atto-2/feature-interior-1.jpg" },
     ],
     specs: [
       { value: "7.9", unit: "s", label: "0-100Km/h" },
@@ -389,50 +411,64 @@ export const CAR_DATA: Record<
     name: "BYD ATTO 3",
     subtitle: "The Family Electric SUV",
     status: "New Electric",
-    heroImage: "/images/atto3/atto3-hero.jpg",
-    bannerImage: "/images/atto3/atto3-banner.jpg",
+    heroImage: "/images/atto-3/hero.png",
+    bannerImage: "/images/atto-3/banner-1.jpg",
     collageImages: [
-      "/images/atto3/atto3-collage-1.jpg",
-      "/images/atto3/atto3-collage-2.jpg",
+      "/images/atto-3/showcase-1.jpg",
+      "/images/atto-3/showcase-2.jpg",
     ],
     showcaseImages: [
-      "/images/atto3/atto3-showcase-1.jpg",
-      "/images/atto3/atto3-showcase-2.jpg",
+      "/images/atto-3/showcase-1.jpg",
+      "/images/atto-3/showcase-2.jpg",
     ],
     videos: [],
     showcaseFeatures: [],
     exteriorColors: [
       {
-        name: "Ocean Blue",
-        colorCode: "blue",
+        name: "White",
+        colorCode: "white",
         images: {
           front: {
-            essential: "/images/atto3/atto3-blue-front-0.jpg",
-            premium: "/images/atto3/atto3-blue-front-1.jpg",
+            essential: "/images/atto-3/white-0-1.jpg",
+            premium: "/images/atto-3/white-1-1.jpg",
           },
           side: {
-            essential: "/images/atto3/atto3-blue-side-0.jpg",
-            premium: "/images/atto3/atto3-blue-side-1.jpg",
+            essential: "/images/atto-3/white-0-2.jpg",
+            premium: "/images/atto-3/white-1-2.jpg",
           },
         },
       },
       {
-        name: "Midnight Black",
+        name: "Black",
         colorCode: "black",
         images: {
           front: {
-            essential: "/images/atto3/atto3-black-front-0.jpg",
-            premium: "/images/atto3/atto3-black-front-1.jpg",
+            essential: "/images/atto-3/black-0-1.jpg",
+            premium: "/images/atto-3/black-1-1.jpg",
           },
           side: {
-            essential: "/images/atto3/atto3-black-side-0.jpg",
-            premium: "/images/atto3/atto3-black-side-1.jpg",
+            essential: "/images/atto-3/black-0-2.jpg",
+            premium: "/images/atto-3/black-1-2.jpg",
+          },
+        },
+      },
+      {
+        name: "Grey",
+        colorCode: "grey",
+        images: {
+          front: {
+            essential: "/images/atto-3/grey-0-1.jpg",
+            premium: "/images/atto-3/grey-1-1.jpg",
+          },
+          side: {
+            essential: "/images/atto-3/grey-0-2.jpg",
+            premium: "/images/atto-3/grey-1-2.jpg",
           },
         },
       },
     ],
     interiorColors: [
-      { name: "Black + Grey", image: "/images/atto3/atto3-interior.jpg" },
+      { name: "Black + Grey", image: "/images/atto-3/feature-interior-1.jpg" },
     ],
     specs: [
       { value: "7.3", unit: "s", label: "0-100Km/h" },
