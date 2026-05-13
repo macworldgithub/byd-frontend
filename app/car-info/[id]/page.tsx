@@ -674,7 +674,6 @@ export default function CarInfoPage() {
             unoptimized
           />
         )}
-
         <div className="absolute top-3 left-3 z-20 flex flex-col gap-2 max-w-[calc(100%-24px)] md:max-w-[360px]">
           <div
             style={{
