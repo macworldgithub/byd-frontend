@@ -551,5 +551,5 @@ export type {
   ExteriorColor,
   InteriorColor,
   CarModel,
-} from "@/lib/api";
-export { getAllCars, getCarById } from "@/lib/api";
+} from "../lib/api";
+export { getAllCars, getCarById } from "../lib/api";
