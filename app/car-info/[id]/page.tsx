@@ -2835,7 +2835,7 @@ export default function CarInfoPage() {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      minHeight: "75vh",
+      minHeight: "65vh",
     }}
   >
     {/* Header — sits above the image */}
@@ -2867,14 +2867,13 @@ export default function CarInfoPage() {
       style={{
         position: "relative",
         width: "100vw",
-        left: "50%",
-        transform: "translateX(-50%)",
+        marginLeft: "calc(-50vw + 50%)",
         height: "clamp(260px, 56vw, 640px)",
         background: "linear-gradient(135deg,#0D1117,#0A0E16)",
         overflow: "hidden",
       }}
     >
-      {/* Car image — full width, object-contain, centered */}
+      {/* Car image — full width, object-cover, centered */}
       {viewMode === "exterior" && car.exteriorColors.length > 0 && (
         <Image
           src={
@@ -2883,7 +2882,7 @@ export default function CarInfoPage() {
           }
           alt={`${car.name} ${selectedColor}`}
           fill
-          style={{ objectFit: "contain", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "center" }}
           unoptimized
         />
       )}
@@ -2893,7 +2892,7 @@ export default function CarInfoPage() {
           src={car.interiorColors[0]?.image || car.heroImage}
           alt={`${car.name} Interior`}
           fill
-          style={{ objectFit: "contain", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "center" }}
           unoptimized
         />
       )}
