@@ -244,9 +244,11 @@ function mapApiCarToLocal(apiCar: CarListItem): Car {
     id: apiCar.carId,
     name: apiCar.name,
     type: apiCar.type,
-    status: apiCar.status,
+    status: apiCar.status === "Used" ? "Used" : "New",
     description: apiCar.subtitle,
-    image: apiCar.showcaseImages?.[0] ?? apiCar.heroImage ?? "",
+    image: (apiCar.showcaseImages?.[0] ?? apiCar.heroImage ?? "")
+      .replace(/\\/g, "/")
+      .replace(/^([^/])/, "/$1"),
   };
 }
 
