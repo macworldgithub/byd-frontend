@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://byd-backend.omnisuiteai.com";
 
 export interface CarSpec {
   value: string;
@@ -49,7 +50,10 @@ export interface CarData {
   specs: CarSpec[];
   overview: { heading: string; body: string };
   design: { title: string; features: { title: string; description: string }[] };
-  technology: { title: string; features: { title: string; description: string }[] };
+  technology: {
+    title: string;
+    features: { title: string; description: string }[];
+  };
   styling: { title: string; subtitle: string };
   safety: { features: { title: string; description: string }[] };
   storage: { boot: string; expanded: string };
