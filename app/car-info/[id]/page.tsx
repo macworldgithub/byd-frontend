@@ -1875,7 +1875,7 @@ const SECTIONS: { id: SectionId; label: string }[] = [
   { id: "configurator", label: "Configure" },
   { id: "safety", label: "Safety" },
   { id: "models", label: "Models" },
-  { id: "cta", label: "Experience" },
+  // { id: "cta", label: "Experience" },
 ];
 
 // ─── LOADING SCREEN ──────────────────────────────────────────────────────
@@ -2242,7 +2242,7 @@ export default function CarInfoPage() {
         >
           {car.subtitle}
         </p>
-        <div className="flex flex-wrap gap-3">
+        {/* <div className="flex flex-wrap gap-3">
           <button
             className="pulse-blue"
             style={{
@@ -2278,7 +2278,7 @@ export default function CarInfoPage() {
           >
             Book Test Drive
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
