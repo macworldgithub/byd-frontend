@@ -251,6 +251,8 @@ export default function CarInfoPage() {
     };
   }, []);
 
+  const sections = SECTIONS.filter((s) => !(id === "9" && s.id === "safety"));
+
   const goToSection = useCallback(
     (index: number, dir?: "left" | "right") => {
       if (isTransitioning || index === activeSection) return;
@@ -267,9 +269,9 @@ export default function CarInfoPage() {
   );
 
   const nextSection = useCallback(() => {
-    if (activeSection < SECTIONS.length - 1)
+    if (activeSection < sections.length - 1)
       goToSection(activeSection + 1, "left");
-  }, [activeSection, goToSection]);
+  }, [activeSection, goToSection, sections.length]);
 
   const prevSection = useCallback(() => {
     if (activeSection > 0) goToSection(activeSection - 1, "right");
@@ -1689,7 +1691,7 @@ export default function CarInfoPage() {
     cta: renderCTA,
   };
 
-  const currentSection = SECTIONS[activeSection];
+  const currentSection = sections[activeSection];
 
   return (
     <div
@@ -1988,7 +1990,7 @@ export default function CarInfoPage() {
           className="absolute top-4 left-1/2 z-30 flex items-center gap-2"
           style={{ transform: "translateX(-50%)" }}
         >
-          {SECTIONS.map((s, i) => (
+          {sections.map((s, i) => (
             <button
               key={s.id}
               onClick={() => goToSection(i)}
@@ -2067,13 +2069,13 @@ export default function CarInfoPage() {
                 textOverflow: "ellipsis",
               }}
             >
-              {activeSection + 1} / {SECTIONS.length} · {currentSection.label}
+              {activeSection + 1} / {sections.length} · {currentSection.label}
             </span>
           </div>
 
           <button
             onClick={nextSection}
-            disabled={activeSection === SECTIONS.length - 1}
+            disabled={activeSection === sections.length - 1}
             style={{
               width: 36,
               height: 36,
@@ -2084,11 +2086,11 @@ export default function CarInfoPage() {
               alignItems: "center",
               justifyContent: "center",
               color:
-                activeSection === SECTIONS.length - 1
+                activeSection === sections.length - 1
                   ? "rgba(0,168,232,0.3)"
                   : "#00A8E8",
               cursor:
-                activeSection === SECTIONS.length - 1 ? "default" : "pointer",
+                activeSection === sections.length - 1 ? "default" : "pointer",
               transition: "all 0.2s",
               flexShrink: 0,
             }}
