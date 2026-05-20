@@ -11,6 +11,7 @@ import {
   useCallback,
   type TouchEvent,
   type ReactNode,
+  type MouseEvent,
 } from "react";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import { NavigationItem } from "@/types/car";
@@ -291,6 +292,31 @@ export default function CarInfoPage() {
       if (dx < 0) nextSection();
       else prevSection();
     }
+  };
+
+  // Mouse hover glow and 3D tilt handlers for the model comparison cards
+  const handleCardMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Set custom CSS properties on the card element
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+    
+    // Calculate 3D tilt perspective values
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -4; // max 4 degrees tilt
+    const rotateY = ((x - centerX) / centerX) * 4; // max 4 degrees tilt
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+  };
+
+  const handleCardMouseLeave = (e: MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
   };
 
   useEffect(() => {
@@ -1403,126 +1429,290 @@ export default function CarInfoPage() {
         Compare Models
       </p>
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        {car.models.map((model, i) => (
-          <div
-            key={i}
-            className={`model-card rounded-sm p-6 ${i === 1 ? "featured" : ""}`}
-          >
-            {i === 1 && (
-              <div
-                style={{
-                  display: "inline-block",
-                  marginBottom: 12,
-                  background: "rgba(0,168,232,0.15)",
-                  border: "1px solid rgba(0,168,232,0.3)",
-                  borderRadius: 2,
-                  padding: "3px 12px",
-                  fontFamily: "'Barlow Condensed',sans-serif",
-                  fontWeight: 700,
-                  fontSize: 10,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "#00A8E8",
-                }}
-              >
-                Recommended
-              </div>
-            )}
-            <h3
+        {car.models.map((model, i) => {
+          // Spec parsing for a beautiful telemetry layout
+          const telemetrySpecs: Array<{ value: string; unit: string; label: string; icon: string; title: string }> = [];
+          const remainingSpecs: string[] = [];
+
+          model.specs.forEach((spec) => {
+            const s = spec.trim();
+            const accelMatch = s.match(/^([\d.]+)(s)\s+(acceleration|0-100.*)$/i) || s.match(/^([\d.]+s)\s+(.*)$/i);
+            const powerMatch = s.match(/^([\d.]+)\s*(kW)\s+(power|peak power.*)$/i) || s.match(/^([\d.]+\s*kW)\s+(.*)$/i);
+            const rangeMatch = s.match(/^([\d.]+)\s*(km)\s+(.*range.*|wltp.*)$/i) || s.match(/^([\d.]+\s*km)\s+(.*)$/i);
+
+            if (accelMatch) {
+              const val = accelMatch[1];
+              telemetrySpecs.push({
+                value: val.replace(/s$/i, ""),
+                unit: "s",
+                label: "0-100 km/h",
+                icon: "⚡",
+                title: "Acceleration"
+              });
+            } else if (powerMatch) {
+              const val = powerMatch[1];
+              telemetrySpecs.push({
+                value: val.replace(/kw$/i, "").trim(),
+                unit: "kW",
+                label: "Peak Power",
+                icon: "🔥",
+                title: "Power"
+              });
+            } else if (rangeMatch) {
+              const val = rangeMatch[1];
+              const label = rangeMatch[2]?.toLowerCase().includes("wltp") ? "WLTP Range" : "Range";
+              telemetrySpecs.push({
+                value: val.replace(/km$/i, "").trim(),
+                unit: "km",
+                label: label,
+                icon: "🌐",
+                title: "Range"
+              });
+            } else {
+              remainingSpecs.push(spec);
+            }
+          });
+
+          return (
+            <div
+              key={i}
+              className={`model-card rounded-lg p-6 ${i === 1 ? "featured" : ""}`}
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+              onClick={() => {
+                const isPremium = model.name.toLowerCase().includes("performance") || model.name.toLowerCase().includes("premium") && !model.name.toLowerCase().includes("essential");
+                setSelectedVariant(isPremium ? "premium" : "essential");
+                
+                const configSectionIdx = sections.findIndex((s) => s.id === "configurator");
+                if (configSectionIdx !== -1) {
+                  goToSection(configSectionIdx, "left");
+                }
+              }}
               style={{
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontWeight: 800,
-                fontSize: 21,
-                letterSpacing: "0.05em",
-                textTransform: "uppercase",
-                color: "#E8ECF0",
-                marginBottom: 18,
+                position: "relative",
+                overflow: "hidden",
+                borderRadius: 8,
+                transition: "transform 0.15s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out, background 0.25s ease-out",
+                cursor: "pointer",
+                padding: "28px 24px",
               }}
             >
-              {model.name}
-            </h3>
-            <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                margin: 0,
-                display: "flex",
-                flexDirection: "column",
-                gap: 0,
-              }}
-            >
-              {model.specs.map((spec, si) => (
-                <li
-                  key={si}
-                  className="feature-row"
+              {/* Metallic top border highlight */}
+              <div className="model-card-top-light" />
+              
+              {i === 1 && (
+                <div
                   style={{
-                    display: "flex",
+                    display: "inline-flex",
                     alignItems: "center",
-                    gap: 10,
-                    padding: "8px 0",
+                    gap: 6,
+                    marginBottom: 14,
+                    background: "rgba(0,168,232,0.1)",
+                    border: "1px solid rgba(0,168,232,0.25)",
+                    borderRadius: 4,
+                    padding: "4px 12px",
+                    fontFamily: "'Barlow Condensed',sans-serif",
+                    fontWeight: 700,
+                    fontSize: 10,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "#00A8E8",
+                    boxShadow: "0 0 12px rgba(0,168,232,0.15)",
                   }}
                 >
-                  <div
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderRadius: "50%",
-                      background: "rgba(0,168,232,0.15)",
-                      border: "1px solid rgba(0,168,232,0.3)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <svg
-                      className="w-2.5 h-2.5"
-                      fill="none"
-                      stroke="#00A8E8"
-                      strokeWidth={2.5}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
                   <span
                     style={{
-                      fontFamily: "'Barlow',sans-serif",
-                      fontSize: 13,
-                      color: "#A0A8B0",
-                      fontWeight: 400,
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: "#00A8E8",
+                      display: "inline-block",
+                      animation: "pulse-neon 1.5s ease-in-out infinite",
                     }}
-                  >
-                    {spec}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <button
-              style={{
-                width: "100%",
-                marginTop: 20,
-                background: i === 1 ? "#00A8E8" : "transparent",
-                color: i === 1 ? "#fff" : "#00A8E8",
-                border: `1px solid ${i === 1 ? "#00A8E8" : "rgba(0,168,232,0.3)"}`,
-                borderRadius: 4,
-                padding: "11px 0",
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontWeight: 700,
-                fontSize: 13,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-              }}
-            >
-              Configure Now
-            </button>
-          </div>
-        ))}
+                  />
+                  Recommended
+                </div>
+              )}
+              <h3
+                style={{
+                  fontFamily: "'Barlow Condensed',sans-serif",
+                  fontWeight: 800,
+                  fontSize: 22,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  color: "#E8ECF0",
+                  marginBottom: 18,
+                  marginTop: i === 1 ? 0 : 4,
+                }}
+              >
+                {model.name}
+              </h3>
+
+              {telemetrySpecs.length > 0 && (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${telemetrySpecs.length}, minmax(0, 1fr))`,
+                    gap: 8,
+                    marginBottom: 20,
+                    marginTop: 4,
+                  }}
+                >
+                  {telemetrySpecs.map((ts, idx) => (
+                    <div
+                      key={idx}
+                      className="telemetry-stat-card"
+                      style={{
+                        background: "rgba(255, 255, 255, 0.02)",
+                        border: "1px solid rgba(255, 255, 255, 0.05)",
+                        borderRadius: 4,
+                        padding: "10px 6px",
+                        textAlign: "center",
+                        transition: "all 0.2s ease",
+                        position: "relative",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 9,
+                          fontFamily: "'Barlow Condensed', sans-serif",
+                          fontWeight: 600,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: "#6B7280",
+                          marginBottom: 4,
+                          textAlign: "center",
+                        }}
+                      >
+                        {ts.title}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "baseline",
+                          justifyContent: "center",
+                          gap: 1,
+                        }}
+                      >
+                        <span
+                          className="stat-number"
+                          style={{
+                            fontSize: "clamp(18px, 3.5vw, 22px)",
+                            fontWeight: 900,
+                            fontFamily: "'Barlow Condensed', sans-serif",
+                            color: "#E8ECF0",
+                          }}
+                        >
+                          {ts.value}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: "'Barlow', sans-serif",
+                            fontWeight: 500,
+                            color: "#00A8E8",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          {ts.unit}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 9,
+                          fontFamily: "'Barlow', sans-serif",
+                          fontWeight: 400,
+                          color: "rgba(255, 255, 255, 0.35)",
+                          marginTop: 2,
+                        }}
+                      >
+                        {ts.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {remainingSpecs.length > 0 && (
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: "12px 0 0 0",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 4,
+                  }}
+                >
+                  {remainingSpecs.map((spec, si) => (
+                    <li
+                      key={si}
+                      className="feature-row"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "8px 8px",
+                        borderRadius: 4,
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 5,
+                          height: 5,
+                          borderRadius: "50%",
+                          background: "#00A8E8",
+                          boxShadow: "0 0 6px rgba(0,168,232,0.5)",
+                          flexShrink: 0,
+                          transition: "all 0.2s ease",
+                          marginLeft: 2,
+                          marginRight: 4,
+                        }}
+                        className="feature-check"
+                      />
+                      <span
+                        style={{
+                          fontFamily: "'Barlow',sans-serif",
+                          fontSize: 12,
+                          color: "#A0A8B0",
+                          fontWeight: 400,
+                          transition: "color 0.2s ease",
+                        }}
+                        className="feature-text"
+                      >
+                        {spec}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <button
+                className={`configure-btn ${i === 1 ? "featured-btn" : ""}`}
+                style={{
+                  width: "100%",
+                  marginTop: 24,
+                  borderRadius: 4,
+                  padding: "12px 0",
+                  fontFamily: "'Barlow Condensed',sans-serif",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  position: "relative",
+                  overflow: "hidden",
+                  zIndex: 5,
+                  transition: "all 0.3s ease",
+                }}
+              >
+                Configure Now
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -1805,20 +1995,129 @@ export default function CarInfoPage() {
           animation: pulse-glow 3s ease-in-out infinite;
         }
         .model-card {
+          position: relative;
           background: linear-gradient(160deg, #0d1117, #111620);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          transition: all 0.3s ease;
-        }
-        .model-card:hover {
-          border-color: rgba(0, 168, 232, 0.35);
-          box-shadow:
-            0 24px 64px rgba(0, 0, 0, 0.6),
-            0 0 40px rgba(0, 168, 232, 0.08);
-          transform: translateY(-4px);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          transition: transform 0.15s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out, background 0.25s ease-out;
         }
         .model-card.featured {
-          border-color: rgba(0, 168, 232, 0.3);
+          border-color: rgba(0, 168, 232, 0.2);
           background: linear-gradient(160deg, #0d1520, #0a1a2e);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .model-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: radial-gradient(
+            350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+            rgba(0, 168, 232, 0.08),
+            transparent 80%
+          );
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: 1;
+        }
+        .model-card.featured::after {
+          background: radial-gradient(
+            350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+            rgba(0, 168, 232, 0.12),
+            transparent 80%
+          );
+        }
+        .model-card:hover::after {
+          opacity: 1;
+        }
+        .model-card:hover {
+          border-color: rgba(0, 168, 232, 0.3);
+        }
+        .model-card.featured:hover {
+          border-color: rgba(0, 168, 232, 0.45);
+        }
+        .model-card-top-light {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+          z-index: 2;
+        }
+        .model-card.featured .model-card-top-light {
+          background: linear-gradient(90deg, transparent, rgba(0, 168, 232, 0.35), transparent);
+        }
+        
+        /* Telemetry Stat Cards */
+        .telemetry-stat-card {
+          transition: all 0.2s ease;
+        }
+        .telemetry-stat-card:hover {
+          background: rgba(255, 255, 255, 0.05) !important;
+          border-color: rgba(0, 168, 232, 0.2) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Configure buttons */
+        .configure-btn {
+          background: transparent;
+          color: #00a8e8;
+          border: 1px solid rgba(0, 168, 232, 0.35);
+        }
+        .configure-btn:hover {
+          background: rgba(0, 168, 232, 0.08);
+          border-color: #00a8e8;
+          color: #fff;
+          box-shadow: 0 0 20px rgba(0, 168, 232, 0.25);
+          text-shadow: 0 0 8px rgba(0, 168, 232, 0.6);
+        }
+        .configure-btn.featured-btn {
+          background: #00a8e8;
+          color: #fff;
+          border: 1px solid #00a8e8;
+          box-shadow: 0 4px 16px rgba(0, 168, 232, 0.25);
+        }
+        .configure-btn.featured-btn:hover {
+          background: #00c0ff;
+          border-color: #00c0ff;
+          box-shadow: 
+            0 0 28px rgba(0, 168, 232, 0.5),
+            0 4px 20px rgba(0, 168, 232, 0.35);
+          transform: translateY(-1px);
+        }
+        
+        /* Bullet Row Interaction */
+        .feature-row {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+          transition: all 0.2s ease;
+        }
+        .feature-row:hover {
+          background: rgba(0, 168, 232, 0.04) !important;
+          padding-left: 12px !important;
+        }
+        .feature-row:hover .feature-check {
+          background: #00a8e8 !important;
+          transform: scale(1.4);
+          box-shadow: 0 0 10px rgba(0, 168, 232, 0.8);
+        }
+        .feature-row:hover .feature-text {
+          color: #e8ecf0 !important;
+        }
+        
+        /* Recommended Indicator Pulse */
+        @keyframes pulse-neon {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: 0 0 0 0px rgba(0, 168, 232, 0.7);
+          }
+          50% {
+            transform: scale(1.2);
+            opacity: 0.5;
+            box-shadow: 0 0 0 5px rgba(0, 168, 232, 0);
+          }
         }
         .stat-number {
           font-family: "Barlow Condensed", sans-serif;
