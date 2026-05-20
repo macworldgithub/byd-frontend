@@ -241,7 +241,7 @@ export default function CarList({
                   }}
                 />
               )}
-              <button
+              {/* <button
                 onClick={(e) => {
                   e.stopPropagation();
                   router.push(`/car-info/${car.id}`);
@@ -256,6 +256,29 @@ export default function CarList({
                   borderRadius: 4,
                   padding: "4px 8px",
                   cursor: "pointer",
+                }}
+              >
+                View Details
+              </button> */}
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleViewDetails();
+                }}
+                style={{
+                  background: "#00A8E8",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 4,
+                  padding: "11px 24px",
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  boxShadow: "0 0 24px rgba(0,168,232,0.35)",
                 }}
               >
                 View Details
