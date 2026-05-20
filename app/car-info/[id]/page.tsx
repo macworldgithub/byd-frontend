@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import Image from "next/image";
@@ -220,10 +218,13 @@ export default function CarInfoPage() {
 
       // Determine default variant based on what's available
       const hasEssential = car.exteriorColors.some(
-        (c) => c.images?.front?.essential?.trim() || c.images?.side?.essential?.trim()
+        (c) =>
+          c.images?.front?.essential?.trim() ||
+          c.images?.side?.essential?.trim(),
       );
       const hasPremium = car.exteriorColors.some(
-        (c) => c.images?.front?.premium?.trim() || c.images?.side?.premium?.trim()
+        (c) =>
+          c.images?.front?.premium?.trim() || c.images?.side?.premium?.trim(),
       );
       if (!hasEssential && hasPremium) {
         setSelectedVariant("premium");
@@ -425,43 +426,6 @@ export default function CarInfoPage() {
         >
           {car.subtitle}
         </p>
-        {/* <div className="flex flex-wrap gap-3">
-          <button
-            className="pulse-blue"
-            style={{
-              background: "#00A8E8",
-              color: "#fff",
-              border: "none",
-              borderRadius: 4,
-              padding: "14px 36px",
-              fontFamily: "'Barlow Condensed',sans-serif",
-              fontWeight: 700,
-              fontSize: 14,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-            }}
-          >
-            Build &amp; Price
-          </button>
-          <button
-            style={{
-              background: "transparent",
-              color: "white",
-              border: "1px solid rgba(255,255,255,0.3)",
-              borderRadius: 4,
-              padding: "14px 36px",
-              fontFamily: "'Barlow Condensed',sans-serif",
-              fontWeight: 600,
-              fontSize: 14,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-            }}
-          >
-            Book Test Drive
-          </button>
-        </div> */}
       </div>
     </div>
   );
@@ -734,422 +698,118 @@ export default function CarInfoPage() {
     </div>
   );
 
-  // const renderConfigurator = () => (
-  //   <div className="section-content">
-  //     <div className="section-label text-center mb-2">Personalize</div>
-  //     <h2
-  //       className="section-title text-center mb-2"
-  //       style={{ fontSize: "clamp(26px,5vw,44px)", color: "#E8ECF0" }}
-  //     >
-  //       {car.styling.title}
-  //     </h2>
-  //     <p
-  //       style={{
-  //         fontFamily: "'Barlow',sans-serif",
-  //         fontWeight: 300,
-  //         fontSize: 14,
-  //         textAlign: "center",
-  //         color: "#6B7280",
-  //         marginBottom: 20,
-  //       }}
-  //     >
-  //       {car.styling.subtitle}
-  //     </p>
-
-  //     <div
-  //       className="relative rounded-sm overflow-hidden"
-  //       style={{
-  //         height: "clamp(240px,34vw,420px)",
-  //         background: "linear-gradient(135deg,#0D1117,#0A0E16)",
-  //         border: "1px solid rgba(0,168,232,0.1)",
-  //       }}
-  //     >
-  //       {/* Corner brackets */}
-  //       {(
-  //         [
-  //           "top-0 left-0",
-  //           "top-0 right-0",
-  //           "bottom-0 left-0",
-  //           "bottom-0 right-0",
-  //         ] as const
-  //       ).map((pos, i) => (
-  //         <div
-  //           key={i}
-  //           className={`absolute ${pos} w-8 h-8 z-10`}
-  //           style={{
-  //             borderTop: i < 2 ? "2px solid rgba(0,168,232,0.4)" : "none",
-  //             borderBottom: i >= 2 ? "2px solid rgba(0,168,232,0.4)" : "none",
-  //             borderLeft:
-  //               i % 2 === 0 ? "2px solid rgba(0,168,232,0.4)" : "none",
-  //             borderRight:
-  //               i % 2 === 1 ? "2px solid rgba(0,168,232,0.4)" : "none",
-  //           }}
-  //         />
-  //       ))}
-
-  //       {viewMode === "exterior" && car.exteriorColors.length > 0 && (
-  //         <Image
-  //           src={
-  //             car.exteriorColors.find((c) => c.colorCode === selectedColor)
-  //               ?.images[selectedView][selectedVariant] || car.heroImage
-  //           }
-  //           alt={`${car.name} ${selectedColor}`}
-  //           fill
-  //           className="object-cover"
-  //           unoptimized
-  //         />
-  //       )}
-
-  //       {viewMode === "interior" && car.interiorColors.length > 0 && (
-  //         <Image
-  //           src={car.interiorColors[0]?.image || car.heroImage}
-  //           alt={`${car.name} Interior`}
-  //           fill
-  //           className="object-cover"
-  //           unoptimized
-  //         />
-  //       )}
-
-  //       {/* Exterior/Interior toggle */}
-  //       <div className="absolute top-3 left-3 z-20 flex flex-col gap-2 max-w-[calc(100%-24px)] md:max-w-[360px]">
-  //         <div
-  //           style={{
-  //             display: "flex",
-  //             flexWrap: "wrap",
-  //             gap: 0,
-  //             borderRadius: 4,
-  //             overflow: "hidden",
-  //             border: "1px solid rgba(0,168,232,0.25)",
-  //             backdropFilter: "blur(12px)",
-  //             background: "rgba(8,10,14,0.75)",
-  //           }}
-  //         >
-  //           {(["exterior", "interior"] as const).map((v) => (
-  //             <button
-  //               key={v}
-  //               onClick={() => setViewMode(v)}
-  //               style={{
-  //                 padding: "5px 12px",
-  //                 fontFamily: "'Barlow Condensed',sans-serif",
-  //                 fontWeight: 700,
-  //                 fontSize: 10,
-  //                 letterSpacing: "0.18em",
-  //                 textTransform: "uppercase",
-  //                 border: "none",
-  //                 cursor: "pointer",
-  //                 transition: "all 0.2s",
-  //                 background: viewMode === v ? "#00A8E8" : "transparent",
-  //                 color: viewMode === v ? "#fff" : "#6B7280",
-  //                 minWidth: 84,
-  //               }}
-  //             >
-  //               {v}
-  //             </button>
-  //           ))}
-  //         </div>
-
-  //         {viewMode === "exterior" && (
-  //           <div
-  //             style={{
-  //               display: "flex",
-  //               flexWrap: "wrap",
-  //               gap: 0,
-  //               borderRadius: 4,
-  //               overflow: "hidden",
-  //               border: "1px solid rgba(0,168,232,0.25)",
-  //               backdropFilter: "blur(12px)",
-  //               background: "rgba(8,10,14,0.75)",
-  //             }}
-  //           >
-  //             {(["front", "side"] as const).map((v) => (
-  //               <button
-  //                 key={v}
-  //                 onClick={() => setSelectedView(v)}
-  //                 style={{
-  //                   padding: "5px 12px",
-  //                   fontFamily: "'Barlow Condensed',sans-serif",
-  //                   fontWeight: 700,
-  //                   fontSize: 10,
-  //                   letterSpacing: "0.18em",
-  //                   textTransform: "uppercase",
-  //                   border: "none",
-  //                   cursor: "pointer",
-  //                   transition: "all 0.2s",
-  //                   background: selectedView === v ? "#00A8E8" : "transparent",
-  //                   color: selectedView === v ? "#fff" : "#6B7280",
-  //                   minWidth: 84,
-  //                 }}
-  //               >
-  //                 {v}
-  //               </button>
-  //             ))}
-  //           </div>
-  //         )}
-
-  //         {viewMode === "exterior" && (
-  //           <div
-  //             style={{
-  //               display: "flex",
-  //               flexDirection: "row",
-  //               flexWrap: "wrap",
-  //               gap: 8,
-  //               background: "rgba(8,10,14,0.75)",
-  //               backdropFilter: "blur(12px)",
-  //               border: "1px solid rgba(0,168,232,0.2)",
-  //               borderRadius: 4,
-  //               padding: "8px 7px",
-  //               maxWidth: "100%",
-  //             }}
-  //           >
-  //             {car.exteriorColors.map((color) => (
-  //               <button
-  //                 key={color.colorCode}
-  //                 onClick={() => setSelectedColor(color.colorCode)}
-  //                 title={color.name}
-  //                 style={{
-  //                   width: 22,
-  //                   height: 22,
-  //                   borderRadius: "50%",
-  //                   background: colorMap[color.colorCode] ?? color.colorCode,
-  //                   border:
-  //                     selectedColor === color.colorCode
-  //                       ? "2px solid #00A8E8"
-  //                       : "2px solid rgba(255,255,255,0.15)",
-  //                   boxShadow:
-  //                     selectedColor === color.colorCode
-  //                       ? "0 0 0 2px rgba(0,168,232,0.35)"
-  //                       : "none",
-  //                   cursor: "pointer",
-  //                   transition: "all 0.2s",
-  //                   transform:
-  //                     selectedColor === color.colorCode
-  //                       ? "scale(1.12)"
-  //                       : "scale(1)",
-  //                 }}
-  //               />
-  //             ))}
-  //           </div>
-  //         )}
-  //       </div>
-
-  //       {/* Active color label */}
-  //       <div
-  //         className="absolute bottom-3 left-3 z-10 flex items-center gap-2 px-3 py-2 rounded-sm"
-  //         style={{
-  //           background: "rgba(8,10,14,0.8)",
-  //           backdropFilter: "blur(12px)",
-  //           border: "1px solid rgba(255,255,255,0.08)",
-  //         }}
-  //       >
-  //         <div
-  //           style={{
-  //             width: 6,
-  //             height: 6,
-  //             borderRadius: "50%",
-  //             background: "#00A8E8",
-  //           }}
-  //         />
-  //         <span
-  //           style={{
-  //             fontFamily: "'Barlow Condensed',sans-serif",
-  //             fontWeight: 600,
-  //             fontSize: 11,
-  //             letterSpacing: "0.1em",
-  //             color: "#E8ECF0",
-  //           }}
-  //         >
-  //           {viewMode === "exterior"
-  //             ? car.exteriorColors.find((c) => c.colorCode === selectedColor)
-  //                 ?.name
-  //             : car.interiorColors[0]?.name}
-  //           {viewMode === "exterior" && (
-  //             <span style={{ color: "#00A8E8" }}> · {selectedVariant}</span>
-  //           )}
-  //         </span>
-  //       </div>
-
-  //       {/* Essential/Premium toggle */}
-  //       {viewMode === "exterior" && (
-  //         <div
-  //           className="absolute bottom-3 right-3 z-10"
-  //           style={{
-  //             display: "flex",
-  //             flexWrap: "wrap",
-  //             borderRadius: 4,
-  //             overflow: "hidden",
-  //             border: "1px solid rgba(0,168,232,0.25)",
-  //             backdropFilter: "blur(12px)",
-  //             background: "rgba(8,10,14,0.75)",
-  //           }}
-  //         >
-  //           {(["essential", "premium"] as const).map((v) => (
-  //             <button
-  //               key={v}
-  //               onClick={() => setSelectedVariant(v)}
-  //               style={{
-  //                 padding: "5px 10px",
-  //                 fontFamily: "'Barlow Condensed',sans-serif",
-  //                 fontWeight: 700,
-  //                 fontSize: 10,
-  //                 letterSpacing: "0.15em",
-  //                 textTransform: "uppercase",
-  //                 border: "none",
-  //                 cursor: "pointer",
-  //                 transition: "all 0.2s",
-  //                 background: selectedVariant === v ? "#00A8E8" : "transparent",
-  //                 color: selectedVariant === v ? "#fff" : "#6B7280",
-  //                 minWidth: 86,
-  //               }}
-  //             >
-  //               {v}
-  //             </button>
-  //           ))}
-  //         </div>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
   const renderConfigurator = () => (
-  <div
-    style={{
-      position: "relative",
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      minHeight: "65vh",
-    }}
-  >
-    {/* Header — sits above the image */}
-    <div className="section-label text-center mb-2" style={{ paddingTop: 20 }}>
-      Personalize
-    </div>
-    <h2
-      className="section-title text-center mb-1"
-      style={{ fontSize: "clamp(26px,5vw,44px)", color: "#E8ECF0", padding: "0 16px" }}
-    >
-      {car.styling.title}
-    </h2>
-    <p
-      style={{
-        fontFamily: "'Barlow',sans-serif",
-        fontWeight: 300,
-        fontSize: 13,
-        textAlign: "center",
-        color: "#6B7280",
-        marginBottom: 12,
-        padding: "0 16px",
-      }}
-    >
-      {car.styling.subtitle}
-    </p>
-
-    {/* ── Full-width image stage ── */}
     <div
       style={{
         position: "relative",
-        width: "100vw",
-        marginLeft: "calc(-50vw + 50%)",
-        height: "clamp(260px, 56vw, 640px)",
-        background: "linear-gradient(135deg,#0D1117,#0A0E16)",
-        overflow: "hidden",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "65vh",
       }}
     >
-      {/* Car image — full width, object-cover, centered */}
-      {viewMode === "exterior" && car.exteriorColors.length > 0 && (
-        <Image
-          src={
-            car.exteriorColors.find((c) => c.colorCode === selectedColor)
-              ?.images[selectedView][selectedVariant] || car.heroImage
-          }
-          alt={`${car.name} ${selectedColor}`}
-          fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          unoptimized
-        />
-      )}
-
-      {viewMode === "interior" && car.interiorColors.length > 0 && (
-        <Image
-          src={car.interiorColors[0]?.image || car.heroImage}
-          alt={`${car.name} Interior`}
-          fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          unoptimized
-        />
-      )}
-
-      {/* Subtle side fade so image blends into page edges */}
+      {/* Header — sits above the image */}
       <div
+        className="section-label text-center mb-2"
+        style={{ paddingTop: 20 }}
+      >
+        Personalize
+      </div>
+      <h2
+        className="section-title text-center mb-1"
         style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background:
-            "linear-gradient(90deg, rgba(8,10,14,0.35) 0%, transparent 18%, transparent 82%, rgba(8,10,14,0.35) 100%)",
-        }}
-      />
-      {/* Subtle bottom fade */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background:
-            "linear-gradient(0deg, rgba(8,10,14,0.5) 0%, transparent 30%)",
-        }}
-      />
-
-      {/* ── TOP-LEFT controls ── */}
-      <div
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          zIndex: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: 6,
+          fontSize: "clamp(26px,5vw,44px)",
+          color: "#E8ECF0",
+          padding: "0 16px",
         }}
       >
-        {/* Exterior / Interior */}
+        {car.styling.title}
+      </h2>
+      <p
+        style={{
+          fontFamily: "'Barlow',sans-serif",
+          fontWeight: 300,
+          fontSize: 13,
+          textAlign: "center",
+          color: "#6B7280",
+          marginBottom: 12,
+          padding: "0 16px",
+        }}
+      >
+        {car.styling.subtitle}
+      </p>
+
+      {/* ── Full-width image stage ── */}
+      <div
+        style={{
+          position: "relative",
+          width: "100vw",
+          marginLeft: "calc(-50vw + 50%)",
+          height: "clamp(260px, 56vw, 640px)",
+          background: "linear-gradient(135deg,#0D1117,#0A0E16)",
+          overflow: "hidden",
+        }}
+      >
+        {/* Car image — full width, object-cover, centered */}
+        {viewMode === "exterior" && car.exteriorColors.length > 0 && (
+          <Image
+            src={
+              car.exteriorColors.find((c) => c.colorCode === selectedColor)
+                ?.images[selectedView][selectedVariant] || car.heroImage
+            }
+            alt={`${car.name} ${selectedColor}`}
+            fill
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            unoptimized
+          />
+        )}
+
+        {viewMode === "interior" && car.interiorColors.length > 0 && (
+          <Image
+            src={car.interiorColors[0]?.image || car.heroImage}
+            alt={`${car.name} Interior`}
+            fill
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            unoptimized
+          />
+        )}
+
+        {/* Subtle side fade so image blends into page edges */}
         <div
           style={{
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            background:
+              "linear-gradient(90deg, rgba(8,10,14,0.35) 0%, transparent 18%, transparent 82%, rgba(8,10,14,0.35) 100%)",
+          }}
+        />
+        {/* Subtle bottom fade */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            background:
+              "linear-gradient(0deg, rgba(8,10,14,0.5) 0%, transparent 30%)",
+          }}
+        />
+
+        {/* ── TOP-LEFT controls ── */}
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            zIndex: 20,
             display: "flex",
-            borderRadius: 4,
-            overflow: "hidden",
-            border: "1px solid rgba(0,168,232,0.22)",
-            backdropFilter: "blur(12px)",
-            background: "rgba(8,10,14,0.38)",
+            flexDirection: "column",
+            gap: 6,
           }}
         >
-          {(["exterior", "interior"] as const).map((v) => (
-            <button
-              key={v}
-              onClick={() => setViewMode(v)}
-              style={{
-                padding: "4px 10px",
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontWeight: 700,
-                fontSize: 9,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                background: viewMode === v ? "#00A8E8" : "transparent",
-                color: viewMode === v ? "#fff" : "rgba(255,255,255,0.45)",
-                minWidth: 62,
-              }}
-            >
-              {v}
-            </button>
-          ))}
-        </div>
-
-        {/* Front / Side */}
-        {viewMode === "exterior" && (
+          {/* Exterior / Interior */}
           <div
             style={{
               display: "flex",
@@ -1160,10 +820,10 @@ export default function CarInfoPage() {
               background: "rgba(8,10,14,0.38)",
             }}
           >
-            {(["front", "side"] as const).map((v) => (
+            {(["exterior", "interior"] as const).map((v) => (
               <button
                 key={v}
-                onClick={() => setSelectedView(v)}
+                onClick={() => setViewMode(v)}
                 style={{
                   padding: "4px 10px",
                   fontFamily: "'Barlow Condensed',sans-serif",
@@ -1174,8 +834,8 @@ export default function CarInfoPage() {
                   border: "none",
                   cursor: "pointer",
                   transition: "all 0.2s",
-                  background: selectedView === v ? "#00A8E8" : "transparent",
-                  color: selectedView === v ? "#fff" : "rgba(255,255,255,0.45)",
+                  background: viewMode === v ? "#00A8E8" : "transparent",
+                  color: viewMode === v ? "#fff" : "rgba(255,255,255,0.45)",
                   minWidth: 62,
                 }}
               >
@@ -1183,153 +843,210 @@ export default function CarInfoPage() {
               </button>
             ))}
           </div>
-        )}
 
-        {/* Color swatches */}
-        {viewMode === "exterior" && (
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 5,
-              background: "rgba(8,10,14,0.38)",
-              backdropFilter: "blur(12px)",
-              border: "1px solid rgba(0,168,232,0.16)",
-              borderRadius: 4,
-              padding: "5px 6px",
-              maxWidth: 130,
-            }}
-          >
-            {car.exteriorColors.map((color) => (
-              <button
-                key={color.colorCode}
-                onClick={() => setSelectedColor(color.colorCode)}
-                title={color.name}
-                style={{
-                  width: 16,
-                  height: 16,
-                  borderRadius: "50%",
-                  background: colorMap[color.colorCode] ?? color.colorCode,
-                  border:
-                    selectedColor === color.colorCode
-                      ? "2px solid #00A8E8"
-                      : "1px solid rgba(255,255,255,0.2)",
-                  boxShadow:
-                    selectedColor === color.colorCode
-                      ? "0 0 0 2px rgba(0,168,232,0.3)"
-                      : "none",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  transform:
-                    selectedColor === color.colorCode ? "scale(1.18)" : "scale(1)",
-                  flexShrink: 0,
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+          {/* Front / Side */}
+          {viewMode === "exterior" && (
+            <div
+              style={{
+                display: "flex",
+                borderRadius: 4,
+                overflow: "hidden",
+                border: "1px solid rgba(0,168,232,0.22)",
+                backdropFilter: "blur(12px)",
+                background: "rgba(8,10,14,0.38)",
+              }}
+            >
+              {(["front", "side"] as const).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setSelectedView(v)}
+                  style={{
+                    padding: "4px 10px",
+                    fontFamily: "'Barlow Condensed',sans-serif",
+                    fontWeight: 700,
+                    fontSize: 9,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    background: selectedView === v ? "#00A8E8" : "transparent",
+                    color:
+                      selectedView === v ? "#fff" : "rgba(255,255,255,0.45)",
+                    minWidth: 62,
+                  }}
+                >
+                  {v}
+                </button>
+              ))}
+            </div>
+          )}
 
-      {/* ── BOTTOM-LEFT: active color label ── */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 10,
-          left: 10,
-          zIndex: 10,
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-          background: "rgba(8,10,14,0.36)",
-          backdropFilter: "blur(10px)",
-          border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 4,
-          padding: "4px 10px",
-        }}
-      >
+          {/* Color swatches */}
+          {viewMode === "exterior" && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 5,
+                background: "rgba(8,10,14,0.38)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(0,168,232,0.16)",
+                borderRadius: 4,
+                padding: "5px 6px",
+                maxWidth: 130,
+              }}
+            >
+              {car.exteriorColors.map((color) => (
+                <button
+                  key={color.colorCode}
+                  onClick={() => setSelectedColor(color.colorCode)}
+                  title={color.name}
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: "50%",
+                    background: colorMap[color.colorCode] ?? color.colorCode,
+                    border:
+                      selectedColor === color.colorCode
+                        ? "2px solid #00A8E8"
+                        : "1px solid rgba(255,255,255,0.2)",
+                    boxShadow:
+                      selectedColor === color.colorCode
+                        ? "0 0 0 2px rgba(0,168,232,0.3)"
+                        : "none",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    transform:
+                      selectedColor === color.colorCode
+                        ? "scale(1.18)"
+                        : "scale(1)",
+                    flexShrink: 0,
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ── BOTTOM-LEFT: active color label ── */}
         <div
-          style={{ width: 5, height: 5, borderRadius: "50%", background: "#00A8E8", flexShrink: 0 }}
-        />
-        <span
           style={{
-            fontFamily: "'Barlow Condensed',sans-serif",
-            fontWeight: 600,
-            fontSize: 10,
-            letterSpacing: "0.1em",
-            color: "#E8ECF0",
-            whiteSpace: "nowrap",
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+            zIndex: 10,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            background: "rgba(8,10,14,0.36)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 4,
+            padding: "4px 10px",
           }}
         >
-          {viewMode === "exterior"
-            ? car.exteriorColors.find((c) => c.colorCode === selectedColor)?.name
-            : car.interiorColors[0]?.name}
-          {viewMode === "exterior" && (
-            <span style={{ color: "#00A8E8" }}> · {selectedVariant}</span>
-          )}
-        </span>
-      </div>
-
-      {/* ── BOTTOM-RIGHT: Essential / Premium ── */}
-      {viewMode === "exterior" && (() => {
-        const availableVariants = (["essential", "premium"] as const).filter((v) => {
-          if (v === "essential") {
-            return car.exteriorColors.some(
-              (c) => c.images?.front?.essential?.trim() || c.images?.side?.essential?.trim()
-            );
-          }
-          if (v === "premium") {
-            return car.exteriorColors.some(
-              (c) => c.images?.front?.premium?.trim() || c.images?.side?.premium?.trim()
-            );
-          }
-          return true;
-        });
-
-        if (availableVariants.length === 0) return null;
-
-        return (
           <div
             style={{
-              position: "absolute",
-              bottom: 10,
-              right: 10,
-              zIndex: 10,
-              display: "flex",
-              borderRadius: 4,
-              overflow: "hidden",
-              border: "1px solid rgba(0,168,232,0.22)",
-              backdropFilter: "blur(12px)",
-              background: "rgba(8,10,14,0.38)",
+              width: 5,
+              height: 5,
+              borderRadius: "50%",
+              background: "#00A8E8",
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Barlow Condensed',sans-serif",
+              fontWeight: 600,
+              fontSize: 10,
+              letterSpacing: "0.1em",
+              color: "#E8ECF0",
+              whiteSpace: "nowrap",
             }}
           >
-            {availableVariants.map((v) => (
-              <button
-                key={v}
-                onClick={() => setSelectedVariant(v)}
+            {viewMode === "exterior"
+              ? car.exteriorColors.find((c) => c.colorCode === selectedColor)
+                  ?.name
+              : car.interiorColors[0]?.name}
+            {viewMode === "exterior" && (
+              <span style={{ color: "#00A8E8" }}> · {selectedVariant}</span>
+            )}
+          </span>
+        </div>
+
+        {/* ── BOTTOM-RIGHT: Essential / Premium ── */}
+        {viewMode === "exterior" &&
+          (() => {
+            const availableVariants = (
+              ["essential", "premium"] as const
+            ).filter((v) => {
+              if (v === "essential") {
+                return car.exteriorColors.some(
+                  (c) =>
+                    c.images?.front?.essential?.trim() ||
+                    c.images?.side?.essential?.trim(),
+                );
+              }
+              if (v === "premium") {
+                return car.exteriorColors.some(
+                  (c) =>
+                    c.images?.front?.premium?.trim() ||
+                    c.images?.side?.premium?.trim(),
+                );
+              }
+              return true;
+            });
+
+            if (availableVariants.length === 0) return null;
+
+            return (
+              <div
                 style={{
-                  padding: "4px 10px",
-                  fontFamily: "'Barlow Condensed',sans-serif",
-                  fontWeight: 700,
-                  fontSize: 9,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  background: selectedVariant === v ? "#00A8E8" : "transparent",
-                  color: selectedVariant === v ? "#fff" : "rgba(255,255,255,0.45)",
-                  minWidth: 64,
+                  position: "absolute",
+                  bottom: 10,
+                  right: 10,
+                  zIndex: 10,
+                  display: "flex",
+                  borderRadius: 4,
+                  overflow: "hidden",
+                  border: "1px solid rgba(0,168,232,0.22)",
+                  backdropFilter: "blur(12px)",
+                  background: "rgba(8,10,14,0.38)",
                 }}
               >
-                {v}
-              </button>
-            ))}
-          </div>
-        );
-      })()}
+                {availableVariants.map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => setSelectedVariant(v)}
+                    style={{
+                      padding: "4px 10px",
+                      fontFamily: "'Barlow Condensed',sans-serif",
+                      fontWeight: 700,
+                      fontSize: 9,
+                      letterSpacing: "0.15em",
+                      textTransform: "uppercase",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                      background:
+                        selectedVariant === v ? "#00A8E8" : "transparent",
+                      color:
+                        selectedVariant === v
+                          ? "#fff"
+                          : "rgba(255,255,255,0.45)",
+                      minWidth: 64,
+                    }}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            );
+          })()}
+      </div>
     </div>
-  </div>
-);
+  );
   const renderSafety = () => (
     <div className="section-content">
       <div className="section-label text-center mb-2">Protection</div>
