@@ -3432,7 +3432,7 @@ export default function CarInfoPage() {
       </div>
 
       {/* Floating AI chat button — shows the context for the current section */}
-      <button
+      {/* <button
         onClick={() => openChat(SECTION_TO_CHAT_CONTEXT[currentSection.id] ?? "default")}
         style={{
           position: "absolute",
@@ -3464,8 +3464,56 @@ export default function CarInfoPage() {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
         </svg>
-      </button>
-
+      </button> */}
+      <button
+  onClick={() =>
+    openChat(SECTION_TO_CHAT_CONTEXT[currentSection.id] ?? "default")
+  }
+  style={{
+    position: "fixed",
+    top: "50%",
+    right: 16,
+    transform: "translateY(-50%)",
+    zIndex: 40,
+    width: 48,
+    height: 48,
+    borderRadius: "50%",
+    background: "linear-gradient(145deg, #00A8E8, #004E8C)",
+    border: "1px solid rgba(0,168,232,0.5)",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 4px 20px rgba(0,168,232,0.4)",
+    transition: "transform 0.2s, box-shadow 0.2s",
+  }}
+  onMouseEnter={(e) => {
+    (e.currentTarget as HTMLButtonElement).style.transform =
+      "translateY(-50%) scale(1.08)";
+    (e.currentTarget as HTMLButtonElement).style.boxShadow =
+      "0 8px 28px rgba(0,168,232,0.55)";
+  }}
+  onMouseLeave={(e) => {
+    (e.currentTarget as HTMLButtonElement).style.transform =
+      "translateY(-50%) scale(1)";
+    (e.currentTarget as HTMLButtonElement).style.boxShadow =
+      "0 4px 20px rgba(0,168,232,0.4)";
+  }}
+  title="Ask BYD Assistant"
+>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#fff"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+  </svg>
+</button>
       {/* Chatbot panel — passes car name AND the current suggestion context */}
       <BYDChatbot
         isOpen={chatOpen}
