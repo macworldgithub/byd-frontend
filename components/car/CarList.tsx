@@ -18,14 +18,7 @@ export default function CarList({
 }: CarListProps) {
   const router = useRouter();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const handleViewDetails = () => {
-    if (onViewDetails) {
-      onViewDetails();
-      return;
-    }
 
-    onImageClick?.();
-  };
   return (
     <div className="py-4 px-4">
       <div
