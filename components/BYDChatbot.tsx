@@ -3161,10 +3161,22 @@ const CONTEXT_SUGGESTIONS: Record<string, string[]> = {
 };
 
 const JOURNEY_STAGES = [
-  { label: "Discover", prompt: "What makes this BYD special compared to other EVs?" },
-  { label: "Compare", prompt: "How does this compare to similar models in the range?" },
-  { label: "Configure", prompt: "Help me choose the right variant, colour and extras" },
-  { label: "Purchase", prompt: "What are my options to finance, order or test drive?" },
+  {
+    label: "Discover",
+    prompt: "What makes this BYD special compared to other EVs?",
+  },
+  {
+    label: "Compare",
+    prompt: "How does this compare to similar models in the range?",
+  },
+  {
+    label: "Configure",
+    prompt: "Help me choose the right variant, colour and extras",
+  },
+  {
+    label: "Purchase",
+    prompt: "What are my options to finance, order or test drive?",
+  },
 ];
 
 // ─── Share Modal ──────────────────────────────────────────────────────────────
@@ -3207,16 +3219,52 @@ function ShareModal({ onClose, conversationSummary }: ShareModalProps) {
           fontFamily: "'Barlow Condensed', sans-serif",
         }}
       >
-        <div style={{ width: 40, height: 3, background: "rgba(255,255,255,0.12)", borderRadius: 2, margin: "12px auto 24px" }} />
+        <div
+          style={{
+            width: 40,
+            height: 3,
+            background: "rgba(255,255,255,0.12)",
+            borderRadius: 2,
+            margin: "12px auto 24px",
+          }}
+        />
 
-        <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: 22, letterSpacing: "0.06em", textTransform: "uppercase", color: "#E8ECF0", marginBottom: 4 }}>
+        <h3
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 800,
+            fontSize: 22,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: "#E8ECF0",
+            marginBottom: 4,
+          }}
+        >
           Continue Your Journey
         </h3>
-        <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 13, color: "#4B5563", marginBottom: 24, lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontFamily: "'Barlow', sans-serif",
+            fontSize: 13,
+            color: "#4B5563",
+            marginBottom: 24,
+            lineHeight: 1.5,
+          }}
+        >
           Send this conversation to your device to explore further at home.
         </p>
 
-        <div style={{ display: "flex", gap: 4, marginBottom: 24, background: "rgba(255,255,255,0.03)", borderRadius: 8, padding: 4, border: "1px solid rgba(255,255,255,0.05)" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: 4,
+            marginBottom: 24,
+            background: "rgba(255,255,255,0.03)",
+            borderRadius: 8,
+            padding: 4,
+            border: "1px solid rgba(255,255,255,0.05)",
+          }}
+        >
           {(["email"] as const).map((tab) => (
             <button
               key={tab}
@@ -3249,12 +3297,35 @@ function ShareModal({ onClose, conversationSummary }: ShareModalProps) {
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "13px 16px", fontFamily: "'Barlow', sans-serif", fontSize: 14, color: "#E8ECF0", outline: "none", width: "100%" }}
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 8,
+                padding: "13px 16px",
+                fontFamily: "'Barlow', sans-serif",
+                fontSize: 14,
+                color: "#E8ECF0",
+                outline: "none",
+                width: "100%",
+              }}
             />
             <button
               onClick={handleSend}
               disabled={!email || sent}
-              style={{ background: sent ? "rgba(0,168,232,0.4)" : "#00A8E8", color: "#fff", border: "none", borderRadius: 8, padding: "14px 0", fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.18em", textTransform: "uppercase", cursor: email && !sent ? "pointer" : "default", transition: "all 0.2s" }}
+              style={{
+                background: sent ? "rgba(0,168,232,0.4)" : "#00A8E8",
+                color: "#fff",
+                border: "none",
+                borderRadius: 8,
+                padding: "14px 0",
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 700,
+                fontSize: 13,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: email && !sent ? "pointer" : "default",
+                transition: "all 0.2s",
+              }}
             >
               {sent ? "✓  Sent Successfully" : "Send to Email"}
             </button>
@@ -3268,12 +3339,35 @@ function ShareModal({ onClose, conversationSummary }: ShareModalProps) {
               placeholder="+61 400 000 000"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "13px 16px", fontFamily: "'Barlow', sans-serif", fontSize: 14, color: "#E8ECF0", outline: "none", width: "100%" }}
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 8,
+                padding: "13px 16px",
+                fontFamily: "'Barlow', sans-serif",
+                fontSize: 14,
+                color: "#E8ECF0",
+                outline: "none",
+                width: "100%",
+              }}
             />
             <button
               onClick={handleSend}
               disabled={!phone || sent}
-              style={{ background: sent ? "rgba(0,168,232,0.4)" : "#00A8E8", color: "#fff", border: "none", borderRadius: 8, padding: "14px 0", fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.18em", textTransform: "uppercase", cursor: phone && !sent ? "pointer" : "default", transition: "all 0.2s" }}
+              style={{
+                background: sent ? "rgba(0,168,232,0.4)" : "#00A8E8",
+                color: "#fff",
+                border: "none",
+                borderRadius: 8,
+                padding: "14px 0",
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 700,
+                fontSize: 13,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: phone && !sent ? "pointer" : "default",
+                transition: "all 0.2s",
+              }}
             >
               {sent ? "✓  Sent Successfully" : "Send via SMS"}
             </button>
@@ -3281,37 +3375,142 @@ function ShareModal({ onClose, conversationSummary }: ShareModalProps) {
         )}
 
         {activeTab === "qr" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
-            <div style={{ background: "#fff", borderRadius: 12, padding: 14, display: "inline-block", border: "1px solid rgba(0,0,0,0.05)" }}>
-              <svg width={120} height={120} viewBox="0 0 120 120" style={{ display: "block" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 14,
+            }}
+          >
+            <div
+              style={{
+                background: "#fff",
+                borderRadius: 12,
+                padding: 14,
+                display: "inline-block",
+                border: "1px solid rgba(0,0,0,0.05)",
+              }}
+            >
+              <svg
+                width={120}
+                height={120}
+                viewBox="0 0 120 120"
+                style={{ display: "block" }}
+              >
                 <rect width="120" height="120" fill="white" />
-                {[[0, 0], [0, 90], [90, 0]].map(([x, y], i) => (
+                {[
+                  [0, 0],
+                  [0, 90],
+                  [90, 0],
+                ].map(([x, y], i) => (
                   <g key={i}>
-                    <rect x={x + 5} y={y + 5} width={25} height={25} fill="black" rx={2} />
-                    <rect x={x + 8} y={y + 8} width={19} height={19} fill="white" rx={1} />
-                    <rect x={x + 11} y={y + 11} width={13} height={13} fill="black" rx={1} />
+                    <rect
+                      x={x + 5}
+                      y={y + 5}
+                      width={25}
+                      height={25}
+                      fill="black"
+                      rx={2}
+                    />
+                    <rect
+                      x={x + 8}
+                      y={y + 8}
+                      width={19}
+                      height={19}
+                      fill="white"
+                      rx={1}
+                    />
+                    <rect
+                      x={x + 11}
+                      y={y + 11}
+                      width={13}
+                      height={13}
+                      fill="black"
+                      rx={1}
+                    />
                   </g>
                 ))}
                 {Array.from({ length: 36 }).map((_, i) => {
                   const col = i % 6;
                   const row = Math.floor(i / 6);
-                  if ((col < 3 && row < 3) || (col < 3 && row > 2) || (col > 2 && row < 3)) return null;
+                  if (
+                    (col < 3 && row < 3) ||
+                    (col < 3 && row > 2) ||
+                    (col > 2 && row < 3)
+                  )
+                    return null;
                   const visible = (i * 7 + 3) % 5 > 1;
-                  return visible ? <rect key={i} x={35 + col * 8 + (col > 3 ? 10 : 0)} y={35 + row * 8 + (row > 3 ? 10 : 0)} width={5} height={5} fill="black" rx={0.5} /> : null;
+                  return visible ? (
+                    <rect
+                      key={i}
+                      x={35 + col * 8 + (col > 3 ? 10 : 0)}
+                      y={35 + row * 8 + (row > 3 ? 10 : 0)}
+                      width={5}
+                      height={5}
+                      fill="black"
+                      rx={0.5}
+                    />
+                  ) : null;
                 })}
-                <text x={60} y={112} textAnchor="middle" fontSize={7} fill="#555">bydfairfield.com.au</text>
+                <text
+                  x={60}
+                  y={112}
+                  textAnchor="middle"
+                  fontSize={7}
+                  fill="#555"
+                >
+                  bydfairfield.com.au
+                </text>
               </svg>
             </div>
-            <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "#4B5563", textAlign: "center", maxWidth: 220, lineHeight: 1.6 }}>
+            <p
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontSize: 12,
+                color: "#4B5563",
+                textAlign: "center",
+                maxWidth: 220,
+                lineHeight: 1.6,
+              }}
+            >
               Scan with your phone to continue exploring on your own device.
             </p>
           </div>
         )}
 
-        <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "rgba(0,168,232,0.05)", border: "1px solid rgba(0,168,232,0.1)", borderRadius: 8 }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", flexShrink: 0 }} />
-          <p style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, color: "#4B5563", margin: 0, lineHeight: 1.5 }}>
-            Call us: <strong style={{ color: "#00A8E8" }}>03 4110 8888</strong> · 415 Heidelberg Road, Fairfield VIC 3078
+        <div
+          style={{
+            marginTop: 20,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            padding: "12px 16px",
+            background: "rgba(0,168,232,0.05)",
+            border: "1px solid rgba(0,168,232,0.1)",
+            borderRadius: 8,
+          }}
+        >
+          <div
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "#22c55e",
+              flexShrink: 0,
+            }}
+          />
+          <p
+            style={{
+              fontFamily: "'Barlow', sans-serif",
+              fontSize: 12,
+              color: "#4B5563",
+              margin: 0,
+              lineHeight: 1.5,
+            }}
+          >
+            Call us: <strong style={{ color: "#00A8E8" }}>03 4110 8888</strong>{" "}
+            · 415 Heidelberg Road, Fairfield VIC 3078
           </p>
         </div>
       </div>
@@ -3320,7 +3519,13 @@ function ShareModal({ onClose, conversationSummary }: ShareModalProps) {
 }
 
 // ─── Message Bubble ───────────────────────────────────────────────────────────
-function MessageBubble({ message, isLatest }: { message: Message; isLatest: boolean }) {
+function MessageBubble({
+  message,
+  isLatest,
+}: {
+  message: Message;
+  isLatest: boolean;
+}) {
   const isUser = message.role === "user";
 
   const renderContent = (text: string) => {
@@ -3330,8 +3535,18 @@ function MessageBubble({ message, isLatest }: { message: Message; isLatest: bool
         <span key={i}>
           {parts.map((part, j) =>
             j % 2 === 1 ? (
-              <strong key={j} style={{ color: isUser ? "rgba(255,255,255,0.95)" : "#E8ECF0", fontWeight: 700 }}>{part}</strong>
-            ) : part
+              <strong
+                key={j}
+                style={{
+                  color: isUser ? "rgba(255,255,255,0.95)" : "#E8ECF0",
+                  fontWeight: 700,
+                }}
+              >
+                {part}
+              </strong>
+            ) : (
+              part
+            ),
           )}
           {i < arr.length - 1 && <br />}
         </span>
@@ -3347,12 +3562,101 @@ function MessageBubble({ message, isLatest }: { message: Message; isLatest: bool
         alignItems: "flex-end",
         gap: 10,
         marginBottom: 16,
-        animation: isLatest ? "msgIn 0.32s cubic-bezier(0.22,1,0.36,1) forwards" : "none",
+        animation: isLatest
+          ? "msgIn 0.32s cubic-bezier(0.22,1,0.36,1) forwards"
+          : "none",
         opacity: isLatest ? 0 : 1,
       }}
     >
       {!isUser && (
-        <div style={{
+        <div
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #00A8E8 0%, #0066B3 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            fontSize: 11,
+            fontWeight: 900,
+            color: "#fff",
+            fontFamily: "'Barlow Condensed', sans-serif",
+            letterSpacing: "0.08em",
+            border: "1px solid rgba(0,168,232,0.3)",
+          }}
+        >
+          BYD
+        </div>
+      )}
+
+      <div
+        style={{
+          maxWidth: "78%",
+          padding: isUser ? "10px 16px" : "12px 16px",
+          borderRadius: isUser ? "16px 16px 4px 16px" : "4px 16px 16px 16px",
+          background: isUser
+            ? "linear-gradient(135deg, #00A8E8, #0066B3)"
+            : "rgba(255,255,255,0.04)",
+          border: isUser ? "none" : "1px solid rgba(255,255,255,0.07)",
+          fontFamily: "'Barlow', sans-serif",
+          fontSize: 13.5,
+          lineHeight: 1.7,
+          color: isUser ? "rgba(255,255,255,0.95)" : "#9CA3AF",
+          fontWeight: 400,
+          boxShadow: isUser ? "0 4px 20px rgba(0,168,232,0.2)" : "none",
+        }}
+      >
+        {renderContent(message.content)}
+      </div>
+
+      {isUser && (
+        <div
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.06)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            border: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="rgba(255,255,255,0.5)"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Typing Indicator ─────────────────────────────────────────────────────────
+function TypingIndicator() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "flex-end",
+        gap: 10,
+        marginBottom: 16,
+      }}
+    >
+      <div
+        style={{
           width: 30,
           height: 30,
           borderRadius: "50%",
@@ -3367,59 +3671,32 @@ function MessageBubble({ message, isLatest }: { message: Message; isLatest: bool
           fontFamily: "'Barlow Condensed', sans-serif",
           letterSpacing: "0.08em",
           border: "1px solid rgba(0,168,232,0.3)",
-        }}>
-          BYD
-        </div>
-      )}
-
-      <div style={{
-        maxWidth: "78%",
-        padding: isUser ? "10px 16px" : "12px 16px",
-        borderRadius: isUser ? "16px 16px 4px 16px" : "4px 16px 16px 16px",
-        background: isUser
-          ? "linear-gradient(135deg, #00A8E8, #0066B3)"
-          : "rgba(255,255,255,0.04)",
-        border: isUser ? "none" : "1px solid rgba(255,255,255,0.07)",
-        fontFamily: "'Barlow', sans-serif",
-        fontSize: 13.5,
-        lineHeight: 1.7,
-        color: isUser ? "rgba(255,255,255,0.95)" : "#9CA3AF",
-        fontWeight: 400,
-        boxShadow: isUser ? "0 4px 20px rgba(0,168,232,0.2)" : "none",
-      }}>
-        {renderContent(message.content)}
+        }}
+      >
+        BYD
       </div>
-
-      {isUser && (
-        <div style={{
-          width: 28,
-          height: 28,
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.06)",
+      <div
+        style={{
+          padding: "12px 18px",
+          borderRadius: "4px 16px 16px 16px",
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.07)",
           display: "flex",
+          gap: 6,
           alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          border: "1px solid rgba(255,255,255,0.08)",
-        }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Typing Indicator ─────────────────────────────────────────────────────────
-function TypingIndicator() {
-  return (
-    <div style={{ display: "flex", alignItems: "flex-end", gap: 10, marginBottom: 16 }}>
-      <div style={{ width: 30, height: 30, borderRadius: "50%", background: "linear-gradient(135deg, #00A8E8 0%, #0066B3 100%)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 11, fontWeight: 900, color: "#fff", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.08em", border: "1px solid rgba(0,168,232,0.3)" }}>BYD</div>
-      <div style={{ padding: "12px 18px", borderRadius: "4px 16px 16px 16px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", display: "flex", gap: 6, alignItems: "center" }}>
+        }}
+      >
         {[0, 1, 2].map((i) => (
-          <div key={i} style={{ width: 5, height: 5, borderRadius: "50%", background: "#00A8E8", animation: `dotBounce 1.4s ease-in-out ${i * 0.18}s infinite` }} />
+          <div
+            key={i}
+            style={{
+              width: 5,
+              height: 5,
+              borderRadius: "50%",
+              background: "#00A8E8",
+              animation: `dotBounce 1.4s ease-in-out ${i * 0.18}s infinite`,
+            }}
+          />
         ))}
       </div>
     </div>
@@ -3427,13 +3704,44 @@ function TypingIndicator() {
 }
 
 // ─── Suggestion Pills ─────────────────────────────────────────────────────────
-function SuggestionPills({ suggestions, onSelect, label }: { suggestions: string[]; onSelect: (s: string) => void; label: string }) {
+function SuggestionPills({
+  suggestions,
+  onSelect,
+  label,
+}: {
+  suggestions: string[];
+  onSelect: (s: string) => void;
+  label: string;
+}) {
   return (
     <div style={{ padding: "0 16px 12px", flexShrink: 0 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-        <div style={{ height: 1, background: "rgba(0,168,232,0.15)", flex: 1 }} />
-        <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: 9, letterSpacing: "0.25em", textTransform: "uppercase", color: "#374151", whiteSpace: "nowrap" }}>{label}</span>
-        <div style={{ height: 1, background: "rgba(0,168,232,0.15)", flex: 1 }} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 10,
+        }}
+      >
+        <div
+          style={{ height: 1, background: "rgba(0,168,232,0.15)", flex: 1 }}
+        />
+        <span
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 700,
+            fontSize: 9,
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "#374151",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {label}
+        </span>
+        <div
+          style={{ height: 1, background: "rgba(0,168,232,0.15)", flex: 1 }}
+        />
       </div>
 
       <div
@@ -3500,15 +3808,22 @@ interface BYDChatbotProps {
   suggestionContext?: keyof typeof CONTEXT_SUGGESTIONS;
 }
 
-export default function BYDChatbot({ isOpen, onClose, carContext, suggestionContext }: BYDChatbotProps) {
+export default function BYDChatbot({
+  isOpen,
+  onClose,
+  carContext,
+  suggestionContext,
+}: BYDChatbotProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showShare, setShowShare] = useState(false);
-  const [conversationHistory, setConversationHistory] = useState<ConversationHistoryItem[]>([]);
+  const [conversationHistory, setConversationHistory] = useState<
+    ConversationHistoryItem[]
+  >([]);
   const [hasStarted, setHasStarted] = useState(false);
   const [currentSuggestions, setCurrentSuggestions] = useState<string[]>(
-    CONTEXT_SUGGESTIONS[suggestionContext ?? "default"]
+    CONTEXT_SUGGESTIONS[suggestionContext ?? "default"],
   );
   const [showSuggestions, setShowSuggestions] = useState(true);
 
@@ -3530,7 +3845,9 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
 
   useEffect(() => {
     if (suggestionContext) {
-      setCurrentSuggestions(CONTEXT_SUGGESTIONS[suggestionContext] ?? CONTEXT_SUGGESTIONS.default);
+      setCurrentSuggestions(
+        CONTEXT_SUGGESTIONS[suggestionContext] ?? CONTEXT_SUGGESTIONS.default,
+      );
     }
   }, [suggestionContext]);
 
@@ -3561,18 +3878,24 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
       setMessages((prev) => [...prev, userMsg]);
       setIsLoading(true);
 
-      const newHistory: ConversationHistoryItem[] = [...conversationHistory, { role: "user", content: trimmed }];
+      const newHistory: ConversationHistoryItem[] = [
+        ...conversationHistory,
+        { role: "user", content: trimmed },
+      ];
 
       try {
-        const response = await fetch("https://byd-backend.omnisuiteai.com/api/chatbot", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: trimmed,
-            conversationHistory,
-            carContext: carContext ?? null,
-          }),
-        });
+        const response = await fetch(
+          "https://byd-backend.omnisuiteai.com/api/chatbot",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              message: trimmed,
+              conversationHistory,
+              carContext: carContext ?? null,
+            }),
+          },
+        );
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
@@ -3585,9 +3908,14 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
             timestamp: new Date(),
           };
           setMessages((prev) => [...prev, assistantMsg]);
-          setConversationHistory([...newHistory, { role: "assistant", content: data.response }]);
+          setConversationHistory([
+            ...newHistory,
+            { role: "assistant", content: data.response },
+          ]);
           setShowSuggestions(true);
-          setCurrentSuggestions(CONTEXT_SUGGESTIONS[suggestionContext ?? "default"]);
+          setCurrentSuggestions(
+            CONTEXT_SUGGESTIONS[suggestionContext ?? "default"],
+          );
         } else {
           throw new Error(data.error || "Unknown error");
         }
@@ -3597,7 +3925,8 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
           {
             id: `err-${Date.now()}`,
             role: "assistant",
-            content: "I'm having a moment — please try again, or call us directly on **03 4110 8888** and our team will be happy to help.",
+            content:
+              "I'm having a moment — please try again, or call us directly on **03 4110 8888** and our team will be happy to help.",
             timestamp: new Date(),
           },
         ]);
@@ -3606,7 +3935,7 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
         inputRef.current?.focus();
       }
     },
-    [isLoading, conversationHistory, carContext, suggestionContext]
+    [isLoading, conversationHistory, carContext, suggestionContext],
   );
 
   const handleReset = () => {
@@ -3621,7 +3950,10 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
         {
           id: "welcome-reset",
           role: "assistant",
-          content: "Fresh start! What would you like to explore about the " + (carContext ?? "BYD range") + "?",
+          content:
+            "Fresh start! What would you like to explore about the " +
+            (carContext ?? "BYD range") +
+            "?",
           timestamp: new Date(),
         },
       ]);
@@ -3701,46 +4033,100 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
           overflow: "hidden",
         }}
       >
-        <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(0,168,232,0.5), transparent)", flexShrink: 0 }} />
+        <div
+          style={{
+            height: 1,
+            background:
+              "linear-gradient(90deg, transparent, rgba(0,168,232,0.5), transparent)",
+            flexShrink: 0,
+          }}
+        />
 
         {/* Header */}
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "14px 16px",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-          background: "rgba(8,10,14,0.9)",
-          backdropFilter: "blur(20px)",
-          flexShrink: 0,
-        }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "14px 16px",
+            borderBottom: "1px solid rgba(255,255,255,0.05)",
+            background: "rgba(8,10,14,0.9)",
+            backdropFilter: "blur(20px)",
+            flexShrink: 0,
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 10,
-              background: "linear-gradient(145deg, #00A8E8, #004E8C)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              border: "1px solid rgba(0,168,232,0.4)",
-              boxShadow: "0 0 16px rgba(0,168,232,0.12)",
-            }}>
+            <div
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: 10,
+                background: "linear-gradient(145deg, #00A8E8, #004E8C)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                border: "1px solid rgba(0,168,232,0.4)",
+                boxShadow: "0 0 16px rgba(0,168,232,0.12)",
+              }}
+            >
               <svg width="20" height="14" viewBox="0 0 48 32" fill="none">
-                <text x="4" y="25" fontFamily="'Barlow Condensed',sans-serif" fontWeight="900" fontSize="26" fill="white" letterSpacing="-1">BYD</text>
+                <text
+                  x="4"
+                  y="25"
+                  fontFamily="'Barlow Condensed',sans-serif"
+                  fontWeight="900"
+                  fontSize="26"
+                  fill="white"
+                  letterSpacing="-1"
+                >
+                  BYD
+                </text>
               </svg>
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: 15, letterSpacing: "0.1em", textTransform: "uppercase", color: "#E8ECF0", lineHeight: 1.1 }}>
+              <div
+                style={{
+                  fontWeight: 800,
+                  fontSize: 15,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "#E8ECF0",
+                  lineHeight: 1.1,
+                }}
+              >
                 BYD Assistant
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 3 }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 6px rgba(34,197,94,0.6)" }} />
-                <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, color: "#4B5563", fontWeight: 400 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 5,
+                  marginTop: 3,
+                }}
+              >
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#22c55e",
+                    boxShadow: "0 0 6px rgba(34,197,94,0.6)",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "'Barlow', sans-serif",
+                    fontSize: 11,
+                    color: "#4B5563",
+                    fontWeight: 400,
+                  }}
+                >
                   Online · BYD Fairfield
                   {carContext && (
-                    <span style={{ color: "#00A8E8", marginLeft: 4 }}>· {carContext}</span>
+                    <span style={{ color: "#00A8E8", marginLeft: 4 }}>
+                      · {carContext}
+                    </span>
                   )}
                 </span>
               </div>
@@ -3770,7 +4156,16 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
                   transition: "all 0.2s",
                 }}
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
                   <polyline points="16 6 12 2 8 6" />
                   <line x1="12" y1="2" x2="12" y2="15" />
@@ -3783,9 +4178,30 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
                 onClick={handleReset}
                 className="byd-icon-btn"
                 title="New conversation"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#4B5563", transition: "all 0.2s" }}
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  borderRadius: 8,
+                  width: 32,
+                  height: 32,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  color: "#4B5563",
+                  transition: "all 0.2s",
+                }}
               >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="23 4 23 10 17 10" />
                   <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10" />
                 </svg>
@@ -3794,9 +4210,30 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
             <button
               onClick={onClose}
               className="byd-icon-btn"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#4B5563", transition: "all 0.2s" }}
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderRadius: 8,
+                width: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: "#4B5563",
+                transition: "all 0.2s",
+              }}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -3806,11 +4243,34 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
 
         {/* Journey Guide — pre-conversation */}
         {!hasStarted && (
-          <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)", flexShrink: 0 }}>
-            <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 10, color: "#374151", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8 }}>
+          <div
+            style={{
+              padding: "12px 16px",
+              borderBottom: "1px solid rgba(255,255,255,0.04)",
+              flexShrink: 0,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "'Barlow', sans-serif",
+                fontSize: 10,
+                color: "#374151",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                marginBottom: 8,
+              }}
+            >
               Where are you in your journey?
             </div>
-            <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: 7,
+                overflowX: "auto",
+                paddingBottom: 2,
+                WebkitOverflowScrolling: "touch",
+              }}
+            >
               {JOURNEY_STAGES.map((stage) => (
                 <button
                   key={stage.label}
@@ -3856,7 +4316,11 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
           style={{ flex: 1, overflowY: "auto", padding: "20px 16px 8px" }}
         >
           {messages.map((msg, i) => (
-            <MessageBubble key={msg.id} message={msg} isLatest={i === messages.length - 1} />
+            <MessageBubble
+              key={msg.id}
+              message={msg}
+              isLatest={i === messages.length - 1}
+            />
           ))}
           {isLoading && <TypingIndicator />}
           <div ref={messagesEndRef} />
@@ -3872,12 +4336,14 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
         )}
 
         {/* Input */}
-        <div style={{
-          padding: "10px 14px 18px",
-          borderTop: "1px solid rgba(255,255,255,0.05)",
-          background: "rgba(8,10,14,0.98)",
-          flexShrink: 0,
-        }}>
+        <div
+          style={{
+            padding: "10px 14px 18px",
+            borderTop: "1px solid rgba(255,255,255,0.05)",
+            background: "rgba(8,10,14,0.98)",
+            flexShrink: 0,
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -3889,8 +4355,14 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
               padding: "10px 10px 10px 16px",
               transition: "border-color 0.2s",
             }}
-            onFocusCapture={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,168,232,0.4)"; }}
-            onBlurCapture={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.08)"; }}
+            onFocusCapture={(e) => {
+              (e.currentTarget as HTMLDivElement).style.borderColor =
+                "rgba(0,168,232,0.4)";
+            }}
+            onBlurCapture={(e) => {
+              (e.currentTarget as HTMLDivElement).style.borderColor =
+                "rgba(255,255,255,0.08)";
+            }}
           >
             <textarea
               ref={inputRef}
@@ -3903,7 +4375,11 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
                   sendMessage(input);
                 }
               }}
-              placeholder={carContext ? `Ask about the ${carContext}…` : "Ask anything about BYD vehicles…"}
+              placeholder={
+                carContext
+                  ? `Ask about the ${carContext}…`
+                  : "Ask anything about BYD vehicles…"
+              }
               rows={1}
               style={{
                 flex: 1,
@@ -3934,36 +4410,68 @@ export default function BYDChatbot({ isOpen, onClose, carContext, suggestionCont
                 height: 36,
                 borderRadius: 9,
                 border: "none",
-                background: input.trim() && !isLoading ? "#00A8E8" : "rgba(255,255,255,0.06)",
+                background:
+                  input.trim() && !isLoading
+                    ? "#00A8E8"
+                    : "rgba(255,255,255,0.06)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: input.trim() && !isLoading ? "pointer" : "default",
                 transition: "all 0.2s",
                 flexShrink: 0,
-                boxShadow: input.trim() && !isLoading ? "0 4px 14px rgba(0,168,232,0.3)" : "none",
+                boxShadow:
+                  input.trim() && !isLoading
+                    ? "0 4px 14px rgba(0,168,232,0.3)"
+                    : "none",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={input.trim() && !isLoading ? "#fff" : "#374151"} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={input.trim() && !isLoading ? "#fff" : "#374151"}
+                strokeWidth={2.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="22" y1="2" x2="11" y2="13" />
                 <polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
             </button>
           </div>
 
-          <div style={{ textAlign: "center", marginTop: 8, fontFamily: "'Barlow', sans-serif", fontSize: 10, color: "rgba(255,255,255,0.14)", letterSpacing: "0.06em" }}>
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: 8,
+              fontFamily: "'Barlow', sans-serif",
+              fontSize: 10,
+              color: "rgba(255,255,255,0.14)",
+              letterSpacing: "0.06em",
+            }}
+          >
             BYD Fairfield · 03 4110 8888 · bydfairfield.com.au
           </div>
         </div>
       </div>
 
-      {showShare && <ShareModal onClose={() => setShowShare(false)} conversationSummary={conversationSummary} />}
+      {showShare && (
+        <ShareModal
+          onClose={() => setShowShare(false)}
+          conversationSummary={conversationSummary}
+        />
+      )}
     </>
   );
 }
 
 // ─── Floating Trigger Button ──────────────────────────────────────────────────
-export function BYDChatbotButton({ carContext, suggestionContext }: {
+export function BYDChatbotButton({
+  carContext,
+  suggestionContext,
+}: {
   carContext?: string;
   suggestionContext?: keyof typeof CONTEXT_SUGGESTIONS;
 }) {
@@ -4008,21 +4516,34 @@ export function BYDChatbotButton({ carContext, suggestionContext }: {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 4px 20px rgba(0,168,232,0.35), 0 0 0 0 rgba(0,168,232,0)",
+          boxShadow:
+            "0 4px 20px rgba(0,168,232,0.35), 0 0 0 0 rgba(0,168,232,0)",
           transition: "transform 0.2s, box-shadow 0.2s",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 28px rgba(0,168,232,0.5)";
+          (e.currentTarget as HTMLButtonElement).style.transform =
+            "scale(1.08)";
+          (e.currentTarget as HTMLButtonElement).style.boxShadow =
+            "0 8px 28px rgba(0,168,232,0.5)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 20px rgba(0,168,232,0.35)";
+          (e.currentTarget as HTMLButtonElement).style.boxShadow =
+            "0 4px 20px rgba(0,168,232,0.35)";
         }}
         title="Ask BYD Assistant"
       >
         {pulse && <div className="byd-fab-ring" />}
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#fff"
+          strokeWidth={1.8}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
         </svg>
       </button>
