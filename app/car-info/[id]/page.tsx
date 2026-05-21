@@ -3932,7 +3932,14 @@ export default function CarInfoPage() {
         ))}
       </div>
       <div className="glow-line mt-8" />
-      <div style={{ textAlign: "center", marginTop: 24 }}>
+      {/* <div style={{ textAlign: "center", marginTop: 24 }}> */}
+      <div
+  style={{
+    textAlign: "center",
+    marginTop: 24,
+    marginBottom: 90, // extra space for floating chatbot on mobile
+  }}
+>
         <AIChatTrigger
           label="Questions about these specs?"
           variant="pill"
@@ -4006,7 +4013,14 @@ export default function CarInfoPage() {
           </div>
         ))}
       </div>
-      <div style={{ textAlign: "center", marginTop: 24 }}>
+      {/* <div style={{ textAlign: "center", marginTop: 24 }}> */}
+      <div
+  style={{
+    textAlign: "center",
+    marginTop: 24,
+    marginBottom: 90, // extra space for floating chatbot on mobile
+  }}
+>
         <AIChatTrigger
           label="Ask about the technology"
           variant="pill"
@@ -4113,8 +4127,13 @@ export default function CarInfoPage() {
         ))}
       </div>
       <div className="glow-line mb-6" />
-      <div style={{ textAlign: "center" }}>
-        <AIChatTrigger
+<div
+  style={{
+    textAlign: "center",
+    marginTop: 24,
+    marginBottom: 90, // extra space for floating chatbot on mobile
+  }}
+>        <AIChatTrigger
           label="Ask about safety features"
           variant="pill"
           onClick={() => openChat("safety")}
