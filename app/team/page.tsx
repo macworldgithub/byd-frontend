@@ -1,4 +1,3 @@
-
 // "use client";
 
 // import { useState, useRef, useCallback, type TouchEvent } from "react";
@@ -1864,7 +1863,7 @@ export default function LeadCapturePage() {
           src="/images/atto-3/hero.png"
           alt="BYD Atto 3 – Discover Your Next BYD"
           fill
-          style={{ objectFit: "cover", objectPosition: "center 30%" }}
+          style={{ objectFit: "contain", objectPosition: "center 30%" }}
           priority
           unoptimized
         />
@@ -2010,8 +2009,9 @@ export default function LeadCapturePage() {
       </div>
 
       {/* ── CONTENT BELOW IMAGE ──────────────────────────────────── */}
-      <div className="section-content" style={{ paddingTop: 28 }}> {/* ← was 24 */}
-
+      <div className="section-content" style={{ paddingTop: 28 }}>
+        {" "}
+        {/* ← was 24 */}
         {/* Subheadline */}
         <p
           style={{
@@ -2030,9 +2030,8 @@ export default function LeadCapturePage() {
             Atto 3, Seal, Sealion, Dolphin &amp; more.
           </span>
         </p>
-
-        <div className="glow-line" style={{ marginBottom: 24 }} /> {/* ← was 20 */}
-
+        <div className="glow-line" style={{ marginBottom: 24 }} />{" "}
+        {/* ← was 20 */}
         {/* Available models label */}
         <p
           style={{
@@ -2047,7 +2046,6 @@ export default function LeadCapturePage() {
         >
           Available Models
         </p>
-
         {/* Model pills */}
         <div
           style={{
@@ -2083,7 +2081,6 @@ export default function LeadCapturePage() {
             </span>
           ))}
         </div>
-
         <button
           onClick={nextSection}
           style={{
@@ -2120,11 +2117,17 @@ export default function LeadCapturePage() {
 
   // ── SECTION: PERSONAL DETAILS ───────────────────────────────────────────
   const renderPersonal = () => (
-    <div className="section-content" style={{ paddingTop: 32 }}> {/* ← was 28 */}
+    <div className="section-content" style={{ paddingTop: 32 }}>
+      {" "}
+      {/* ← was 28 */}
       <div className="section-label text-center mb-2">Step 1 of 3</div>
       <h2
         className="section-title text-center mb-2"
-        style={{ fontSize: "clamp(24px,5vw,40px)", color: "#E8ECF0", marginBottom: 10 }} // ← added marginBottom
+        style={{
+          fontSize: "clamp(24px,5vw,40px)",
+          color: "#E8ECF0",
+          marginBottom: 10,
+        }} // ← added marginBottom
       >
         Your Details
       </h2>
@@ -2139,8 +2142,8 @@ export default function LeadCapturePage() {
       >
         We'll use this to send your personalised offer.
       </p>
-      <div className="glow-line" style={{ marginBottom: 28 }} /> {/* ← was 24 */}
-
+      <div className="glow-line" style={{ marginBottom: 28 }} />{" "}
+      {/* ← was 24 */}
       {/* First + Last name row */}
       <div
         style={{
@@ -2169,9 +2172,10 @@ export default function LeadCapturePage() {
           />
         </div>
       </div>
-
       {/* Email */}
-      <div style={{ marginBottom: 16 }}> {/* ← was 12 */}
+      <div style={{ marginBottom: 16 }}>
+        {" "}
+        {/* ← was 12 */}
         <FieldLabel label="Email Address" required />
         <Input
           value={form.email}
@@ -2181,9 +2185,10 @@ export default function LeadCapturePage() {
           error={errors.email}
         />
       </div>
-
       {/* Phone */}
-      <div style={{ marginBottom: 16 }}> {/* ← was 12 */}
+      <div style={{ marginBottom: 16 }}>
+        {" "}
+        {/* ← was 12 */}
         <FieldLabel label="Phone Number" required />
         <Input
           value={form.phone}
@@ -2193,9 +2198,10 @@ export default function LeadCapturePage() {
           error={errors.phone}
         />
       </div>
-
       {/* Postcode */}
-      <div style={{ marginBottom: 28 }}> {/* ← was 24 */}
+      <div style={{ marginBottom: 28 }}>
+        {" "}
+        {/* ← was 24 */}
         <FieldLabel label="Postcode" required />
         <Input
           value={form.postcode}
@@ -2204,7 +2210,6 @@ export default function LeadCapturePage() {
           error={errors.postcode}
         />
       </div>
-
       <button
         onClick={handlePersonalNext}
         style={{
@@ -2231,11 +2236,17 @@ export default function LeadCapturePage() {
 
   // ── SECTION: VEHICLE PREFERENCES ───────────────────────────────────────
   const renderVehicle = () => (
-    <div className="section-content" style={{ paddingTop: 32 }}> {/* ← was 28 */}
+    <div className="section-content" style={{ paddingTop: 32 }}>
+      {" "}
+      {/* ← was 28 */}
       <div className="section-label text-center mb-2">Step 2 of 3</div>
       <h2
         className="section-title text-center mb-2"
-        style={{ fontSize: "clamp(24px,5vw,40px)", color: "#E8ECF0", marginBottom: 10 }} // ← added marginBottom
+        style={{
+          fontSize: "clamp(24px,5vw,40px)",
+          color: "#E8ECF0",
+          marginBottom: 10,
+        }} // ← added marginBottom
       >
         Your Preferences
       </h2>
@@ -2250,10 +2261,12 @@ export default function LeadCapturePage() {
       >
         Help us match you with the right vehicle.
       </p>
-      <div className="glow-line" style={{ marginBottom: 28 }} /> {/* ← was 24 */}
-
+      <div className="glow-line" style={{ marginBottom: 28 }} />{" "}
+      {/* ← was 24 */}
       {/* Model selection */}
-      <div style={{ marginBottom: 28 }}> {/* ← was 20 */}
+      <div style={{ marginBottom: 28 }}>
+        {" "}
+        {/* ← was 20 */}
         <FieldLabel label="Which BYD model interests you most?" required />
         <div
           style={{
@@ -2309,11 +2322,21 @@ export default function LeadCapturePage() {
         </div>
         {errors.model && <ErrorText text={errors.model} />}
       </div>
-
       {/* Timeline */}
-      <div style={{ marginBottom: 28 }}> {/* ← was 20 */}
+      <div style={{ marginBottom: 28 }}>
+        {" "}
+        {/* ← was 20 */}
         <FieldLabel label="When are you looking to buy?" required />
-        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 8 }}> {/* ← gap was 8, added marginTop */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+            marginTop: 8,
+          }}
+        >
+          {" "}
+          {/* ← gap was 8, added marginTop */}
           {TIMELINES.map((t) => (
             <button
               key={t.value}
@@ -2371,11 +2394,14 @@ export default function LeadCapturePage() {
         </div>
         {errors.timeline && <ErrorText text={errors.timeline} />}
       </div>
-
       {/* Contact preference */}
-      <div style={{ marginBottom: 28 }}> {/* ← was 24 */}
+      <div style={{ marginBottom: 28 }}>
+        {" "}
+        {/* ← was 24 */}
         <FieldLabel label="Preferred Contact" />
-        <div style={{ display: "flex", gap: 12, marginTop: 8 }}> {/* ← gap was 10, added marginTop */}
+        <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+          {" "}
+          {/* ← gap was 10, added marginTop */}
           {(["phone", "email"] as const).map((pref) => (
             <button
               key={pref}
@@ -2404,7 +2430,6 @@ export default function LeadCapturePage() {
           ))}
         </div>
       </div>
-
       <button
         onClick={handleVehicleNext}
         style={{
@@ -2498,7 +2523,8 @@ export default function LeadCapturePage() {
             BYD team will be in touch shortly with your personalised offer for
             the <strong style={{ color: "#00A8E8" }}>{modelLabel}</strong>.
           </p>
-          <div className="glow-line" style={{ marginBottom: 32 }} /> {/* ← was 28 */}
+          <div className="glow-line" style={{ marginBottom: 32 }} />{" "}
+          {/* ← was 28 */}
           <button
             onClick={() => router.push("/car-details")}
             style={{
@@ -2522,16 +2548,22 @@ export default function LeadCapturePage() {
     }
 
     return (
-      <div className="section-content" style={{ paddingTop: 32 }}> {/* ← was 28 */}
+      <div className="section-content" style={{ paddingTop: 32 }}>
+        {" "}
+        {/* ← was 28 */}
         <div className="section-label text-center mb-2">Step 3 of 3</div>
         <h2
           className="section-title text-center mb-2"
-          style={{ fontSize: "clamp(24px,5vw,40px)", color: "#E8ECF0", marginBottom: 10 }} // ← added marginBottom
+          style={{
+            fontSize: "clamp(24px,5vw,40px)",
+            color: "#E8ECF0",
+            marginBottom: 10,
+          }} // ← added marginBottom
         >
           Review &amp; Submit
         </h2>
-        <div className="glow-line" style={{ marginBottom: 24 }} /> {/* ← was 20 */}
-
+        <div className="glow-line" style={{ marginBottom: 24 }} />{" "}
+        {/* ← was 20 */}
         {/* Summary card */}
         <div
           style={{
@@ -2599,9 +2631,10 @@ export default function LeadCapturePage() {
             </div>
           ))}
         </div>
-
         {/* Notes */}
-        <div style={{ marginBottom: 24 }}> {/* ← was 20 */}
+        <div style={{ marginBottom: 24 }}>
+          {" "}
+          {/* ← was 20 */}
           <FieldLabel label="Additional notes (optional)" />
           <textarea
             value={form.notes}
@@ -2631,7 +2664,6 @@ export default function LeadCapturePage() {
             }}
           />
         </div>
-
         {/* Consent */}
         <div
           onClick={() => setField("consent", !form.consent)}
@@ -2694,7 +2726,6 @@ export default function LeadCapturePage() {
           </p>
         </div>
         {errors.consent && <ErrorText text={errors.consent} />}
-
         {/* API error banner */}
         {submitError && (
           <div
@@ -2736,7 +2767,6 @@ export default function LeadCapturePage() {
             </p>
           </div>
         )}
-
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
@@ -2786,7 +2816,6 @@ export default function LeadCapturePage() {
             "Get My Personalised BYD Offer"
           )}
         </button>
-
         {/* Security note */}
         <div
           style={{
@@ -2893,20 +2922,44 @@ export default function LeadCapturePage() {
           animation: slideOutRight 0.35s cubic-bezier(0.55, 0, 1, 0.45) forwards;
         }
         @keyframes slideInLeft {
-          from { transform: translateX(60px); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
+          from {
+            transform: translateX(60px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
         }
         @keyframes slideInRight {
-          from { transform: translateX(-60px); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
+          from {
+            transform: translateX(-60px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
         }
         @keyframes slideOutLeft {
-          from { transform: translateX(0); opacity: 1; }
-          to { transform: translateX(-60px); opacity: 0; }
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(-60px);
+            opacity: 0;
+          }
         }
         @keyframes slideOutRight {
-          from { transform: translateX(0); opacity: 1; }
-          to { transform: translateX(60px); opacity: 0; }
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(60px);
+            opacity: 0;
+          }
         }
         textarea::placeholder,
         input::placeholder {
@@ -2917,7 +2970,9 @@ export default function LeadCapturePage() {
           color-scheme: dark;
         }
         @keyframes spin {
-          to { transform: rotate(360deg); }
+          to {
+            transform: rotate(360deg);
+          }
         }
       `}</style>
 
