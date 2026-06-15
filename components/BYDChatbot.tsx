@@ -4738,7 +4738,6 @@ function useVoiceAgent() {
     animFrameRef.current = requestAnimationFrame(trackVolume);
   }, []);
 
-
   const startMic = useCallback(async (socket: Socket) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
@@ -4786,7 +4785,7 @@ function useVoiceAgent() {
     // processor needs to be connected to *something* in the graph to fire,
     // but we use a silent GainNode set to 0 so no audio leaks to speakers
     const silentGain = ctx.createGain();
-    silentGain.gain.value = 0;  
+    silentGain.gain.value = 0;
     processor.connect(silentGain);
     silentGain.connect(ctx.destination);
   }, []);
