@@ -4738,7 +4738,7 @@ function useVoiceAgent() {
     animFrameRef.current = requestAnimationFrame(trackVolume);
   }, []);
 
-  // ── Start microphone capture and stream to socket ─────────────────────
+
   const startMic = useCallback(async (socket: Socket) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
