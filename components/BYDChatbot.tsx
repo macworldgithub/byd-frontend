@@ -4657,7 +4657,7 @@ const JOURNEY_STAGES = [
 // ─── Voice Server URL ─────────────────────────────────────────────────────────
 const VOICE_SERVER_URL =
   typeof window !== "undefined"
-    ? process.env.NEXT_PUBLIC_BYD_VOICE_URL || "http://localhost:4000"
+    ? "https://byd-voice.omnisuiteai.com"
     : "http://localhost:4000";
 
 // ─── Voice Agent Hook ─────────────────────────────────────────────────────────
