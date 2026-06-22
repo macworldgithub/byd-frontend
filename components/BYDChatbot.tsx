@@ -5919,18 +5919,79 @@ export default function BYDChatbot({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  // Send initial greeting via API when chatbot opens with a car context
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
+    if (!isOpen || messages.length > 0) return;
+
+    if (carContext) {
+      // Fire API call immediately so backend knows which car we're discussing
+      setIsLoading(true);
+      fetch("https://byd-backend.omnisuiteai.com/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: `I am interested in the ${carContext}. Please greet me and let me know how you can help.`,
+          conversationHistory: [],
+          carContext: carContext,
+          initialGreeting: true,
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then((data) => {
+          const welcomeContent =
+            data.success && data.response
+              ? data.response
+              : `Hi! I'm your BYD assistant.\n\nI see you're exploring the **${carContext}** — great choice! I can help with specs, pricing, features, comparisons, and anything else.\n\n**What would you like to know?**`;
+
+          setMessages([
+            {
+              id: "welcome",
+              role: "assistant",
+              content: welcomeContent,
+              timestamp: new Date(),
+            },
+          ]);
+
+          // Seed conversation history so follow-up messages have car context
+          setConversationHistory([
+            {
+              role: "user",
+              content: `I am interested in the ${carContext}. Please greet me and let me know how you can help.`,
+            },
+            { role: "assistant", content: welcomeContent },
+          ]);
+        })
+        .catch(() => {
+          // Fallback to static welcome on network error
+          setMessages([
+            {
+              id: "welcome",
+              role: "assistant",
+              content: `Hi! I'm your BYD assistant.\n\nI see you're exploring the **${carContext}** — great choice! I can help with specs, pricing, features, comparisons, and anything else.\n\n**What would you like to know?**`,
+              timestamp: new Date(),
+            },
+          ]);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      // No car context — show static general welcome
       setMessages([
         {
           id: "welcome",
           role: "assistant",
-          content: `Hi! I'm your BYD assistant.\n\nI see you're exploring the **${carContext ?? "BYD vehicle"}** — great choice! I can help with specs, pricing, features, comparisons, and anything else.\n\n**What would you like to know?**`,
+          content:
+            "Hi! I'm your BYD assistant.\n\nI'm here to help you explore our full range of electric and hybrid vehicles — from specs and pricing to comparisons and features.\n\n**What would you like to know?**",
           timestamp: new Date(),
         },
       ]);
     }
-  }, [isOpen, carContext, messages.length]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   useEffect(() => {
     if (suggestionContext)
