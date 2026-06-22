@@ -6873,8 +6873,8 @@ const JOURNEY_STAGES = [
 // ─── Voice Server URL ─────────────────────────────────────────────────────────
 const VOICE_SERVER_URL =
   typeof window !== "undefined"
-    ? "https://byd-voice.omnisuiteai.com"
-    : "http://localhost:4000";
+    ? "http://localhost:4030"
+    : "http://localhost:4030";
 
 // ─── Voice Agent Hook ─────────────────────────────────────────────────────────
 function useVoiceAgent() {
@@ -7025,7 +7025,7 @@ function useVoiceAgent() {
   }, []);
 
   // ── Connect to voice server ──────────────────────────────────────────────
-  const connect = useCallback(async () => {
+  const connect = useCallback(async (carContext?: string) => {
     if (voiceStateRef.current !== "idle" && voiceStateRef.current !== "error")
       return;
 
@@ -7051,7 +7051,8 @@ function useVoiceAgent() {
       }
 
       socket.on("connect", () => {
-        socket.emit("start-session");
+        // Pass carContext so the backend knows which car page this session is for
+        socket.emit("start-session", { carContext: carContext ?? null });
       });
 
       socket.on("session-started", async () => {
@@ -7205,7 +7206,7 @@ function VoiceModal({
   }, [transcriptLog, agentTranscript]);
 
   useEffect(() => {
-    connect();
+    connect(carContext);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -7372,7 +7373,7 @@ function VoiceModal({
 
           <button
             onClick={() => {
-              if (voiceState === "idle" || voiceState === "error") connect();
+              if (voiceState === "idle" || voiceState === "error") connect(carContext);
             }}
             disabled={
               voiceState === "connecting" ||
