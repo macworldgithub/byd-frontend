@@ -6804,6 +6804,7 @@ interface VoiceTranscript {
   text: string;
 }
 
+
 // ─── Context-aware suggestion maps ───────────────────────────────────────────
 const CONTEXT_SUGGESTIONS: Record<string, string[]> = {
   specs: [
@@ -6905,10 +6906,10 @@ function useVoiceAgent() {
   const stopMic = useCallback(() => {
     try {
       processorRef.current?.disconnect();
-    } catch (_) {}
+    } catch (_) { }
     try {
       sourceRef.current?.disconnect();
-    } catch (_) {}
+    } catch (_) { }
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach((t) => t.stop());
       mediaStreamRef.current = null;
@@ -6923,7 +6924,7 @@ function useVoiceAgent() {
     activeSourcesRef.current.forEach((src) => {
       try {
         src.stop();
-      } catch (_) {}
+      } catch (_) { }
     });
     activeSourcesRef.current = [];
     // Reset clock to NOW so next agent audio chains cleanly from current time
@@ -7156,7 +7157,7 @@ function useVoiceAgent() {
       socketRef.current = null;
     }
     if (audioContextRef.current) {
-      audioContextRef.current.close().catch(() => {});
+      audioContextRef.current.close().catch(() => { });
       audioContextRef.current = null;
     }
 
@@ -8150,7 +8151,6 @@ export default function BYDChatbot({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Send initial greeting via API when chatbot opens with a car context
   useEffect(() => {
     if (!isOpen || messages.length > 0) return;
 
@@ -8221,7 +8221,6 @@ export default function BYDChatbot({
         },
       ]);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   useEffect(() => {
