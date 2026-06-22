@@ -6873,7 +6873,7 @@ const JOURNEY_STAGES = [
 // ─── Voice Server URL ─────────────────────────────────────────────────────────
 const VOICE_SERVER_URL =
   typeof window !== "undefined"
-    ? "http://localhost:4030"
+    ? "https://byd-voice.omnisuiteai.com"
     : "http://localhost:4030";
 
 // ─── Voice Agent Hook ─────────────────────────────────────────────────────────
@@ -7025,123 +7025,132 @@ function useVoiceAgent() {
   }, []);
 
   // ── Connect to voice server ──────────────────────────────────────────────
-  const connect = useCallback(async (carContext?: string) => {
-    if (voiceStateRef.current !== "idle" && voiceStateRef.current !== "error")
-      return;
+  const connect = useCallback(
+    async (carContext?: string) => {
+      if (voiceStateRef.current !== "idle" && voiceStateRef.current !== "error")
+        return;
 
-    setVoiceState("connecting");
-    setTranscriptLog([]);
-    agentTranscriptRef.current = "";
-    setAgentTranscript("");
-    setUserTranscript("");
-    // FIX: reset to 0 at connect time; will be set to currentTime once ctx exists
-    nextPlayTimeRef.current = 0;
-    activeSourcesRef.current = [];
+      setVoiceState("connecting");
+      setTranscriptLog([]);
+      agentTranscriptRef.current = "";
+      setAgentTranscript("");
+      setUserTranscript("");
+      // FIX: reset to 0 at connect time; will be set to currentTime once ctx exists
+      nextPlayTimeRef.current = 0;
+      activeSourcesRef.current = [];
 
-    try {
-      const socket: Socket = io(VOICE_SERVER_URL, {
-        transports: ["websocket"],
-        reconnection: false,
-      });
-      socketRef.current = socket;
+      try {
+        const socket: Socket = io(VOICE_SERVER_URL, {
+          transports: ["websocket"],
+          reconnection: false,
+        });
+        socketRef.current = socket;
 
-      audioContextRef.current = new AudioContext({ sampleRate: 24000 });
-      if (audioContextRef.current.state === "suspended") {
-        await audioContextRef.current.resume();
-      }
-
-      socket.on("connect", () => {
-        // Pass carContext so the backend knows which car page this session is for
-        socket.emit("start-session", { carContext: carContext ?? null });
-      });
-
-      socket.on("session-started", async () => {
-        setVoiceState("active");
-        try {
-          await startMic(socket);
-          trackVolume();
-        } catch (micErr) {
-          console.error("Mic access denied:", micErr);
-          setVoiceState("error");
+        audioContextRef.current = new AudioContext({ sampleRate: 24000 });
+        if (audioContextRef.current.state === "suspended") {
+          await audioContextRef.current.resume();
         }
-      });
 
-      socket.on("audio-delta", ({ delta }: { delta: string }) => {
-        setVoiceState((prev) =>
-          prev === "active" || prev === "agent-speaking"
-            ? "agent-speaking"
-            : prev,
-        );
-        playPcm16Chunk(delta);
-      });
+        socket.on("connect", () => {
+          // Pass carContext so the backend knows which car page this session is for
+          socket.emit("start-session", { carContext: carContext ?? null });
+        });
 
-      // FIX: use stopAllScheduledAudio to cancel pre-buffered agent audio
-      socket.on("speech-started", () => {
-        stopAllScheduledAudio();
-        setVoiceState("active");
-        agentTranscriptRef.current = "";
-        setAgentTranscript("");
-      });
+        socket.on("session-started", async () => {
+          setVoiceState("active");
+          try {
+            await startMic(socket);
+            trackVolume();
+          } catch (micErr) {
+            console.error("Mic access denied:", micErr);
+            setVoiceState("error");
+          }
+        });
 
-      socket.on("transcript-done", ({ transcript }: { transcript: string }) => {
-        if (transcript?.trim()) {
-          setTranscriptLog((prev) => [
-            ...prev,
-            { role: "agent", text: transcript },
-          ]);
+        socket.on("audio-delta", ({ delta }: { delta: string }) => {
+          setVoiceState((prev) =>
+            prev === "active" || prev === "agent-speaking"
+              ? "agent-speaking"
+              : prev,
+          );
+          playPcm16Chunk(delta);
+        });
+
+        // FIX: use stopAllScheduledAudio to cancel pre-buffered agent audio
+        socket.on("speech-started", () => {
+          stopAllScheduledAudio();
+          setVoiceState("active");
           agentTranscriptRef.current = "";
           setAgentTranscript("");
-          setTimeout(
-            () =>
-              setVoiceState((prev) =>
-                prev === "agent-speaking" ? "active" : prev,
-              ),
-            600,
-          );
-        }
-      });
+        });
 
-      socket.on("user-transcript", ({ transcript }: { transcript: string }) => {
-        if (transcript?.trim()) {
-          setUserTranscript(transcript);
-          setTranscriptLog((prev) => [
-            ...prev,
-            { role: "user", text: transcript },
-          ]);
-          setTimeout(() => setUserTranscript(""), 2500);
-        }
-      });
+        socket.on(
+          "transcript-done",
+          ({ transcript }: { transcript: string }) => {
+            if (transcript?.trim()) {
+              setTranscriptLog((prev) => [
+                ...prev,
+                { role: "agent", text: transcript },
+              ]);
+              agentTranscriptRef.current = "";
+              setAgentTranscript("");
+              setTimeout(
+                () =>
+                  setVoiceState((prev) =>
+                    prev === "agent-speaking" ? "active" : prev,
+                  ),
+                600,
+              );
+            }
+          },
+        );
 
-      socket.on("transcript-delta", ({ delta }: { delta: string }) => {
-        agentTranscriptRef.current += delta;
-        setAgentTranscript(agentTranscriptRef.current);
-      });
+        socket.on(
+          "user-transcript",
+          ({ transcript }: { transcript: string }) => {
+            if (transcript?.trim()) {
+              setUserTranscript(transcript);
+              setTranscriptLog((prev) => [
+                ...prev,
+                { role: "user", text: transcript },
+              ]);
+              setTimeout(() => setUserTranscript(""), 2500);
+            }
+          },
+        );
 
-      socket.on(
-        "realtime-error",
-        ({ error }: { error: { message: string } }) => {
-          console.error("Voice error:", error);
+        socket.on("transcript-delta", ({ delta }: { delta: string }) => {
+          agentTranscriptRef.current += delta;
+          setAgentTranscript(agentTranscriptRef.current);
+        });
+
+        socket.on(
+          "realtime-error",
+          ({ error }: { error: { message: string } }) => {
+            console.error("Voice error:", error);
+            setVoiceState("error");
+          },
+        );
+
+        socket.on("session-closed", () => {
+          setVoiceState("idle");
+        });
+
+        socket.on("connect_error", (err) => {
+          console.error("Socket connect error:", err.message);
           setVoiceState("error");
-        },
-      );
+        });
 
-      socket.on("session-closed", () => {
-        setVoiceState("idle");
-      });
-
-      socket.on("connect_error", (err) => {
-        console.error("Socket connect error:", err.message);
+        socket.on("disconnect", () => {
+          setVoiceState((prev) => (prev !== "idle" ? "error" : "idle"));
+        });
+      } catch (err) {
+        console.error("Voice connect failed:", err);
         setVoiceState("error");
-      });
-
-      socket.on("disconnect", () => {
-        setVoiceState((prev) => (prev !== "idle" ? "error" : "idle"));
-      });
-    } catch (err) {
-      console.error("Voice connect failed:", err);
-      setVoiceState("error");
-    }
-  }, [startMic, playPcm16Chunk, trackVolume, stopAllScheduledAudio]);
+      }
+    },
+    [startMic, playPcm16Chunk, trackVolume, stopAllScheduledAudio],
+  );
 
   // ── Disconnect and clean up all resources ────────────────────────────────
   const disconnect = useCallback(() => {
@@ -7373,7 +7382,8 @@ function VoiceModal({
 
           <button
             onClick={() => {
-              if (voiceState === "idle" || voiceState === "error") connect(carContext);
+              if (voiceState === "idle" || voiceState === "error")
+                connect(carContext);
             }}
             disabled={
               voiceState === "connecting" ||
