@@ -6804,7 +6804,6 @@ interface VoiceTranscript {
   text: string;
 }
 
-
 // ─── Context-aware suggestion maps ───────────────────────────────────────────
 const CONTEXT_SUGGESTIONS: Record<string, string[]> = {
   specs: [
@@ -6874,8 +6873,8 @@ const JOURNEY_STAGES = [
 // ─── Voice Server URL ─────────────────────────────────────────────────────────
 const VOICE_SERVER_URL =
   typeof window !== "undefined"
-    ? "http://localhost:4030"
-    : "http://localhost:4030";
+    ? "https://byd-voice.omnisuiteai.com"
+    : "http://localhost:4000";
 
 // ─── Voice Agent Hook ─────────────────────────────────────────────────────────
 function useVoiceAgent() {
@@ -6906,10 +6905,10 @@ function useVoiceAgent() {
   const stopMic = useCallback(() => {
     try {
       processorRef.current?.disconnect();
-    } catch (_) { }
+    } catch (_) {}
     try {
       sourceRef.current?.disconnect();
-    } catch (_) { }
+    } catch (_) {}
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach((t) => t.stop());
       mediaStreamRef.current = null;
@@ -6924,7 +6923,7 @@ function useVoiceAgent() {
     activeSourcesRef.current.forEach((src) => {
       try {
         src.stop();
-      } catch (_) { }
+      } catch (_) {}
     });
     activeSourcesRef.current = [];
     // Reset clock to NOW so next agent audio chains cleanly from current time
@@ -7026,7 +7025,7 @@ function useVoiceAgent() {
   }, []);
 
   // ── Connect to voice server ──────────────────────────────────────────────
-  const connect = useCallback(async (carContext?: string) => {
+  const connect = useCallback(async () => {
     if (voiceStateRef.current !== "idle" && voiceStateRef.current !== "error")
       return;
 
@@ -7052,8 +7051,7 @@ function useVoiceAgent() {
       }
 
       socket.on("connect", () => {
-        // Pass carContext so the backend knows which car page this session is for
-        socket.emit("start-session", { carContext: carContext ?? null });
+        socket.emit("start-session");
       });
 
       socket.on("session-started", async () => {
@@ -7158,7 +7156,7 @@ function useVoiceAgent() {
       socketRef.current = null;
     }
     if (audioContextRef.current) {
-      audioContextRef.current.close().catch(() => { });
+      audioContextRef.current.close().catch(() => {});
       audioContextRef.current = null;
     }
 
@@ -7207,7 +7205,7 @@ function VoiceModal({
   }, [transcriptLog, agentTranscript]);
 
   useEffect(() => {
-    connect(carContext);
+    connect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -7374,7 +7372,7 @@ function VoiceModal({
 
           <button
             onClick={() => {
-              if (voiceState === "idle" || voiceState === "error") connect(carContext);
+              if (voiceState === "idle" || voiceState === "error") connect();
             }}
             disabled={
               voiceState === "connecting" ||
@@ -8152,6 +8150,7 @@ export default function BYDChatbot({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  // Send initial greeting via API when chatbot opens with a car context
   useEffect(() => {
     if (!isOpen || messages.length > 0) return;
 
@@ -8222,6 +8221,7 @@ export default function BYDChatbot({
         },
       ]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   useEffect(() => {
